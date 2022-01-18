@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from './components/HomePage';
 import SignIn from './components/Sign/SignIn/SignIn';
 import SignUp from './components/Sign/SignUp/SignUp';
