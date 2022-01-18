@@ -1,5 +1,5 @@
 const initialState = {
-  trainer: [],
+  trainers: [],
   loading: false,
   error: null,
 }
@@ -14,7 +14,7 @@ export const trainerReducer = (state = initialState, action) => {
     case 'trainer/fetch/fullfilled':
       return {
         ...state,
-        trainer: action.payload,
+        trainers: action.payload,
         loading: false,
       };
     case 'trainer/fetch/rejected':
