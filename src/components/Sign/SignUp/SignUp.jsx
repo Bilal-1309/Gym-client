@@ -1,55 +1,73 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../../redux/features/auth";
+import styles from '../SignUp/signup.module.css'
 
 export default function SignUp() {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailDirty, setEmailDirty] = useState (false)
-  const [passwordDirty, setPasswordDirty] = useState (false)
-  const [emailError, setEmailError] = useState ('поле ввода не может быть пустым')
-  const [passwordError, setPasswordError] = useState ('поле ввода не может быть пустым')
-  const [formValid, setFormVAlid] = useState(false)
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [passwordDirty, setPasswordDirty] = useState(false);
+  const [emailError, setEmailError] = useState( "поле ввода не может быть пустым" );
+  const [passwordError, setPasswordError] = useState("поле ввода не может быть пустым");
+  const [formValid, setFormVAlid] = useState(false);
+  const [name, setName] = useState("");
+  const [nameDirty, setNameDirty] = useState(false);
+  const [nameError, setNameError] = useState("поле ввода не может быть пустым");
+  const [weight, setWeight] = useState("");
+  const [weightDirty, setWeightDirty] = useState(false);
+  const [weightError, setWeightError] = useState("поле ввода не может быть пустым");
 
   const handleChangeEmail = (e) => {
-    setEmail(e.target.value)
-      let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if(!regEmail.test(String(e.target.value).toLowerCase())){
-        setEmailError('Invalid Email');
-      } else {
-        setEmailError('')
+    setEmail(e.target.value);
+    let regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regEmail.test(String(e.target.value).toLowerCase())) {
+      setEmailError("неправильно введен емейл");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 3 || e.target.value.length > 8) {
+      setPasswordError("пароль должен быть длиннее 3 и меньше 8");
+      if (!e.target.value) {
+        setPasswordError("поле ввода не может быть пустым");
       }
-  }
-
-
-  const passwordHandler = (e) =>{
-    setPassword(e.target.value)
-    if(e.target.value.length < 3 || e.target.value.length > 8){
-      setPasswordError('пароль должен быть длиннее 3 и меньше 8')
-  if(!e.target.value){setPasswordError('поле ввода не может быть пустым')}
-  
-
-    }else{
-      setPasswordError('')
+    } else {
+      setPasswordError("");
     }
-  }
+  };
 
-  useEffect(() =>{
-    if(emailError || passwordError){
-      setFormVAlid(false)
-    }else{
-      setFormVAlid(true)
+  const nameHandler = (e) => {
+    setName(e.target.value);
+    if (!e.target.value) {
+      setNameError("поле ввода не может быть пустым");
+    } else {
+      setNameError("");
     }
-   
-  },[emailError,passwordError])
-  
-  const [name, setName] = useState("");
-  const [weight, setWeight] = useState("");
+  };
 
+  const weightHandler = (e) => {
+    setWeight(e.target.value);
+    if (!e.target.value) {
+      setWeightError("поле ввода не может быть пустым");
+    } else {
+      setWeightError("");
+    }
+  };
 
-
+  useEffect(() => {
+    if (emailError || passwordError) {
+      setFormVAlid(false);
+    } else {
+      setFormVAlid(true);
+    }
+  }, [emailError, passwordError]);
 
   const signingUp = useSelector((state) => state.auth.signingUp);
   const error = useSelector((state) => state.auth.error);
@@ -66,44 +84,97 @@ export default function SignUp() {
     dispatch(createUser(email, password));
   };
 
-
-  const blurHandler = (e) =>{
+  const blurHandler = (e) => {
     switch (e.target.name) {
-      case 'email':
-        setEmailDirty(true)
-        break
-        case 'password':
-          setPasswordDirty(true)
-          break
+      case "email":
+        setEmailDirty(true);
+        break;
+      case "password":
+        setPasswordDirty(true);
+        break;
     }
-  }
+  };
+
+  const blurName = (e) => {
+    switch (e.target.name) {
+      case "Name":
+        setNameDirty(true);
+        break;
+      case "number":
+        setWeightDirty(true);
+        break;
+    }
+  };
 
   return (
+    <div className={styles.gradient}>
+    <div className={styles.login__box}>
+      <h2>регистрация</h2>
     <form>
       {error}
-        {(emailDirty && emailError) && <div style={{color:'red'}}>{emailError}</div>}
-        <input   type="email" placeholder="type email" value={email}   onChange={(e) => handleChangeEmail(e)}onBlur={e => blurHandler(e)} name='email'/>
-         
-      {(passwordDirty && passwordError) && <div style={{color:'red'}}>{passwordError}</div>}
-        <input type="password" placeholder="type password" value={password} onChange={e => passwordHandler(e)} onBlur={e => blurHandler(e)} name='password' />
+      {emailDirty && emailError && (
+        <div style={{ color: "red" }}>{emailError}</div>
+      )}
+      <div className={styles.user__box}>
+      <input
+        type="email"
+        placeholder="type email"
+        value={email}
+        onChange={(e) => handleChangeEmail(e)}
+        onBlur={(e) => blurHandler(e)}
+        name="email"
+      />
+      </div>
 
-        
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-      
-      <button onClick={handleSubmit} disabled={!formValid}>
-        регистрация
+      {passwordDirty && passwordError && (
+        <div style={{ color: "red" }}>{passwordError}</div>
+      )}
+      <div className={styles.user__box}>
+      <input
+        type="password"
+        placeholder="type password"
+        value={password}
+        onChange={(e) => passwordHandler(e)}
+        onBlur={(e) => blurHandler(e)}
+        name="password"
+      />
+      </div>
+
+      {nameDirty && nameError && (
+        <div style={{ color: "red" }}>{nameError}</div>
+      )}
+            <div className={styles.user__box}>
+
+      <input
+        onBlur={(e) => blurName(e)}
+        name="Name"
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => nameHandler(e)}
+      />
+      </div>
+
+      {weightDirty && weightError && (
+        <div style={{ color: "red" }}>{weightError}</div>
+      )}
+      <div className={styles.user__box}>
+
+      <input
+        onBlur={(e) => blurName(e)}
+        name="number"
+        type="number"
+        placeholder="number"
+        value={weight}
+        onChange={(e) => weightHandler(e)}
+      />
+      </div>
+
+      <button onClick={handleSubmit} disabled={!formValid} className={styles.button5}> 
+      зарегистрироваться 
       </button>
     </form>
+    </div>
+    </div>
   );
 }
