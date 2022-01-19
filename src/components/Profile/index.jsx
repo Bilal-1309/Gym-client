@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './profile.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { loadProfile } from '../../redux/features/profile';
 
 const Profile = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(loadProfile());
+  },[dispatch]);
+
+  const user = useSelector((state)=> state.profileReducer.user);
+
   return (
     <div className={styles.profile}>
       <div className={styles.header}>
