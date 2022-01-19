@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadSubscriptions } from "../../../redux/features/subscription";
-import styles from "./carts.module.css";
+import { loadSubscriptions } from "../../redux/features/subscription";
+import styles from "./subscription.module.css";
 
 const Subscriptions = () => {
   const dispatch = useDispatch();
@@ -22,19 +22,6 @@ const Subscriptions = () => {
           {subscriptions.map((subscription) => {
             return (
               <>
-               {/*  <div className={styles.cart}>
-                  <div className={styles.cart__img}>
-                    <img
-                      src={`http://localhost:5000/${subscription.img}`}
-                      alt=""
-                    />
-                    <h3 className={styles.cart__img__title}>
-                      {subscription.name}
-                    </h3>
-                  </div>
-                  <p className={styles.cart__time}>{subscription.time}</p>
-                  <p className={styles.cart__price}>{subscription.price}</p>
-                </div> */}
                 <figure className={styles.cart}>
                   <h2 className={styles.cart__img__title}>{subscription.name}</h2>
                   <img
