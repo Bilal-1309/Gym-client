@@ -1,3 +1,47 @@
+.container {
+  width: 1100px;
+  margin: auto;
+}
+
+.container_block {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .headerTitle {
   text-align: center;
+}
+
+.headerTitle h2 {
+}
+
+.cart {
+  margin-top: 30px;
+}
+
+.block_cart {
+  text-align: center;
+}
+
+.block_cart img {
+  height: 400px;
+  width: 250px;
+  border-radius: 5px;
+  -webkit-filter: grayscale(100%);
+  transition: 0.6s;
+  cursor: pointer;
+  opacity: 1;
+  filter: grayscale(100%);
+}
+
+.block_cart img:hover {
+  transition: 1s;
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
+.block_cart p {
+  font-size: 18px;
+  font-weight: 300;
 }
