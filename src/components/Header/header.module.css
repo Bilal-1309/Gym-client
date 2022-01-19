@@ -81,3 +81,9 @@ img {
   font-weight: bold;
   color: aliceblue;
 }
+
+.header__links {
+  color: black;
+  cursor: pointer;
+  margin: 16px 0;
+}
