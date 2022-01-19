@@ -1,5 +1,6 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchTrainers } from '../../redux/features/trainer'
 import styles from '../Trainer/trainer.module.css'
 
 function Trainer() {
@@ -13,12 +14,14 @@ function Trainer() {
       </div>
       {trainers.map((trainer) => {
         return (
-          // <div className={styles.image}>
-          //   <img src={} alt="" />
-          // </div>
-          <p>
-            {trainer.name}
-          </p>
+          <div className={styles.cartBody}>
+            <div className={styles.image}>
+              <img src={`http://localhost:5000/${trainer.img}`} alt="" />
+            </div>
+            <p>
+              {trainer.name}
+            </p>
+          </div>
         )
       })}
     </div>
