@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { createUser } from "../../../redux/features/auth";
 import styles from '../SignUp/signup.module.css'
 
@@ -13,9 +14,12 @@ export default function SignUp() {
   const [emailError, setEmailError] = useState( "поле ввода не может быть пустым" );
   const [passwordError, setPasswordError] = useState("поле ввода не может быть пустым");
   const [formValid, setFormVAlid] = useState(false);
+
   const [name, setName] = useState("");
   const [nameDirty, setNameDirty] = useState(false);
   const [nameError, setNameError] = useState("поле ввода не может быть пустым");
+
+
   const [weight, setWeight] = useState("");
   const [weightDirty, setWeightDirty] = useState(false);
   const [weightError, setWeightError] = useState("поле ввода не может быть пустым");
@@ -72,16 +76,17 @@ export default function SignUp() {
   const signingUp = useSelector((state) => state.auth.signingUp);
   const error = useSelector((state) => state.auth.error);
 
-  const handleChangeLogin = (e) => {
-    setEmail(e.target.value);
-  };
+  // const handleChangeLogin = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  // const handleChangePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   const handleSubmit = () => {
     dispatch(createUser(email, password));
+    
   };
 
   const blurHandler = (e) => {
@@ -174,6 +179,9 @@ export default function SignUp() {
       зарегистрироваться 
       </button>
     </form>
+    <div className={styles.main}>
+    <Link to="/" className={styles.a}>Главное меню</Link>
+    </div>
     </div>
     </div>
   );
