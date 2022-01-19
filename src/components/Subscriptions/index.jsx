@@ -15,14 +15,14 @@ const Subscriptions = () => {
   );
 
   return (
-    <div className={styles.carts__block}>
+    <div className={styles.carts__block} id="subscription">
       <div className={styles.container}>
         <h1 className={styles.carts__title}>Абонементы</h1>
         <div className={styles.carts__items}>
           {subscriptions.map((subscription) => {
             return (
               <>
-                <figure className={styles.cart}>
+                <figure className={styles.cart} key={subscription._id}>
                   <h2 className={styles.cart__img__title}>{subscription.name}</h2>
                   <img
                     src={`http://localhost:5000/${subscription.img}`}

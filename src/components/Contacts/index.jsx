@@ -4,7 +4,7 @@ import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 const Contacts = () => {
   return (
-    <div className={styles.contacts}>
+    <div className={styles.contacts} id="address">
       <div className={styles.contacts__line}></div>
       <div className={styles.contacts__address}>
         <h2 className={styles.contacts__address__title}>Адрес</h2>

@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-scroll";
+import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
-import bg from "./bg1.png";
-import logo1 from "./logog.png";
+import bg from "../../assets/bg1.png";
+import logo1 from "../../assets/logog.png";
 
-const index = () => {
+const Header = () => {
   return (
     <>
       <div className={styles.header__bgImage}>
@@ -19,16 +21,48 @@ const index = () => {
               />
             </div>
             <div className={styles.header__navbar__text}>
-              <p>Купить абонимент</p>
-              <p>Галерея</p>
-              <p style={{color: "white"}}>Адрес</p>
-              <p style={{color: "white"}}>Вход</p>
+              <Link
+                className={styles.header__links}
+                to="subscription"
+                smooth={true}
+                duration={1000}
+              >
+                Купить абонимент
+              </Link>
+              <Link
+                className={styles.header__links}
+                to="gallery"
+                smooth={true}
+                duration={1000}
+              >
+                Галерея
+              </Link>
+              <Link
+                className={styles.header__links}
+                style={{ color: "white" }}
+                to="address"
+                smooth={true}
+                duration={1000}
+              >
+                Адрес
+              </Link>
+              <NavLink 
+              className={styles.header__links} 
+              to={"/signin"}
+              style={{ color: "white" }}
+              >
+                Вход
+              </NavLink>
             </div>
           </div>
           <div className={styles.header__info}>
-            <h1>Take the lesson from <br /> only $10.99 a month.</h1>
+            <h1>
+              Take the lesson from <br /> only $10.99 a month.
+            </h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictum nunc congue aliquam lectus non pellentesque. Convallis facilisi iaculis id nunc, cursus.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictum
+              nunc congue aliquam lectus non pellentesque. Convallis facilisi
+              iaculis id nunc, cursus.
             </p>
             <button>Купить</button>
           </div>
@@ -47,4 +81,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Header;
