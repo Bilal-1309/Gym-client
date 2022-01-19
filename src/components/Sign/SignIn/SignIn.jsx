@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../redux/features/auth";
+import styles from '../SignIn/signin.module.css'
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -24,27 +25,39 @@ export default function SignIn() {
   };
 
   return (
-    <div>
-      {error}
-      <div>
-        <input
-          type="email"
-          placeholder="type email"
-          value={email}
-          onChange={handleChangeLogin}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          placeholder="type password"
-          value={password}
-          onChange={handleChangePassword}
-        />
-      </div>
-      <button onClick={handleSubmit} disabled={signingIn}>
-        авторизация
-      </button>
+    <div className={styles.gradient}>
+    <div className={styles.login__box}>
+      <h2>Login</h2>
+      <form>
+        {error}
+
+        <div className={styles.user__box}>
+          <input
+            type="email"
+            name=""
+            required=""
+            value={email}
+            placeholder="email"
+            onChange={handleChangeLogin}
+          />
+        </div>
+
+        <div className={styles.user__box}>
+          <input
+            type="password"
+            value={password}
+            onChange={handleChangePassword}
+            name=""
+            required=""
+            placeholder="password"
+          />
+        </div>
+
+       <button onClick={handleSubmit} disabled={signingIn} className={styles.button5}>
+       Login
+        </button>
+      </form>
+    </div>
     </div>
   );
 }
