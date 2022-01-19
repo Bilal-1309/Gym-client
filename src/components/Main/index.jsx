@@ -1,11 +1,11 @@
 import React from 'react';
-import Carts from './Carts';
+import Subscriptions from './Subscriptions';
 import styles from './main.module.css'
 
 const Main = () => {
   return (
     <div className={styles.main}>
-      <Carts />
+      <Subscriptions />
     </div>
   );
 };
