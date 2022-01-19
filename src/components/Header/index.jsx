@@ -4,8 +4,18 @@ import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
 import bg from "../../assets/bg1.png";
 import logo1 from "../../assets/logog.png";
+import { useDispatch, useSelector } from 'react-redux';
+import {logOut} from '../../redux/features/auth'
 
 const Header = () => {
+
+  const token = useSelector(state => state.auth.token)
+  const dispatch = useDispatch();
+
+  const handleClickLogut = () => {
+    dispatch(logOut());
+  }
+
   return (
     <>
       <div className={styles.header__bgImage}>
@@ -46,13 +56,21 @@ const Header = () => {
               >
                 Адрес
               </Link>
-              <NavLink 
+              {!token ? (<NavLink
               className={styles.header__links} 
               to={"/signin"}
               style={{ color: "white" }}
               >
                 Вход
-              </NavLink>
+              </NavLink>) :
+                (<NavLink
+                  className={styles.header__links}
+                  to={"/"}
+                  style={{color:"darkred"}}
+                  onClick={handleClickLogut}>
+                    Выход
+                  </NavLink>
+                )}
             </div>
           </div>
           <div className={styles.header__info}>
@@ -80,5 +98,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

@@ -1,5 +1,5 @@
 const initialState = {
-  profile: {},
+  user:{},
   loading: false,
   error: null
 };
@@ -8,18 +8,17 @@ export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'profile/load/pending':
       return {
-        loading: true,
-        ...state
+        ...state,
+        loading: true
       };
     case 'profile/load/fulfilled':
       return {
+        ...state,
         loading: false,
-        user: action.payload,
-        ...state
+        user: action.payload
       }
     case 'profile/load/rejected':
       return {
-        loading: false,
         ...state,
         error: action.payload
       }

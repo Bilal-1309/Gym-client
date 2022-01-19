@@ -2,7 +2,8 @@ const initialState = {
   signingUp: false,
   signingIn: false,
   error: null,
-  token:null
+  token: localStorage.getItem("token"),
+  id: localStorage.getItem("id")
 };
 
 export default function auth(state = initialState, action) {
@@ -41,7 +42,8 @@ export default function auth(state = initialState, action) {
         return {
           ...state,
           signingIn: false,
-          token:action.payload.token
+          id: action.payload.json.id,
+          token:action.payload.json.token
         };
   
       case "application/signin/rejected":
@@ -50,20 +52,23 @@ export default function auth(state = initialState, action) {
           signingIn: false,
           error: action.error,
         };
-
-
-    default:
-      return state;
+      case "application/logOut/fulfilled":
+        return {
+          ...state,
+          token: null
+        }
+      default:
+        return state;
   }
-}
+};
 
-export const createUser = (email, password) => {
+export const createUser = (email, password, name, weight) => {
   return async (dispatch) => {
     dispatch({ type: "application/signup/pending" });
 
     const response = await fetch("http://localhost:5000/users/register", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, name, weight }),
       headers: {
         "Content-type": "application/json",
       },
@@ -97,7 +102,16 @@ export const login = (email,password) =>{
         if (json.error) {
           dispatch({ type: "application/signin/rejected", error: json.error });
         } else {
-          dispatch({ type: "application/signin/fulfilled", payload: json });
+          dispatch({ type: "application/signin/fulfilled", payload: {json} });
+          localStorage.setItem("token", json.token);
+          localStorage.setItem("id", json.id);
         }
     }
+}
+
+export const logOut = () => {
+  return async (dispatch) => {
+    dispatch({type: "application/logOut/fulfilled"});
+    localStorage.clear();
+  }
 }
