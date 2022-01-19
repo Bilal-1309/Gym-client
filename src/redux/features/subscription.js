@@ -28,17 +28,16 @@ export const subscriptionsReducer = (state = initialState, action) => {
 }
 
 export const loadSubscriptions = () => {
-  return async(dispatch) => {
+  return async (dispatch) => {
     dispatch({ type: 'subscriptions/load/pending' });
     try {
-      const res = await fetch('http://localhost:5000/users/subscriptions')
-      const json = await res.json()
+      const res = await fetch("http://localhost:5000/users/subscriptions");
+      const data = await res.json();
 
-      console.log(json);
 
-      dispatch({type: 'subscriptions/load/fullfilled', payload: json})
-    } catch(error) {
-      dispatch({type: 'subscriptions/load/rejected', payload: error})
+      dispatch({ type: 'subscriptions/load/fullfilled', payload: data });
+    } catch (e) {
+      dispatch({ type:'subscriptions/load/rejected', payload: e });
     }
-  }
-}
+  };
+};
