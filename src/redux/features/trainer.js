@@ -6,18 +6,18 @@ const initialState = {
 
 export const trainerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'trainer/fetch/pending':
+    case 'trainers/load/pending':
       return {
         ...state,
         loading: true,
       };
-    case 'trainer/fetch/fullfilled':
+    case 'trainers/load/fullfilled':
       return {
         ...state,
         trainers: action.payload,
         loading: false,
       };
-    case 'trainer/fetch/rejected':
+    case 'trainers/load/rejected':
       return {
         ...state,
         error: action.payload
@@ -27,17 +27,17 @@ export const trainerReducer = (state = initialState, action) => {
   }
 }
 
-export const fetchTrainers = () => {
+export const loadTrainers = () => {
   return async(dispatch) => {
-    dispatch({type: 'trainer/fetch/pending'});
+    dispatch({type: 'trainers/load/pending'});
 
     try {
-      const res = await fetch('http://localhost:5000/admin/trainers')
+      const res = await fetch('http://localhost:5000/users/trainers')
       const json = await res.json()
 
-      dispatch({type: 'trainer/fetch/fullfilled', payload: json})
-    } catch(e) {
-      dispatch({type: 'trainer/fetch/rejected', payload: e})
+      dispatch({type: 'trainers/load/fullfilled', payload: json})
+    } catch(error) {
+      dispatch({type: 'trainers/load/rejected', payload: error})
     }
   }
 }
