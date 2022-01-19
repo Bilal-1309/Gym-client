@@ -1,24 +1,118 @@
-.profile{
+*{
+  box-sizing: border-box;
+  margin:0;
 
 }
 .header{
-
+  background: url("http://king-of-fitness.com/images/plg_jdvthumbs/thumb-trenagerka-07e082b6b169cbe6af789fb25aa68ee9.jpg");
+  background-size: cover;
+  height: 500px;
+  color: white;
 }
 .header__name{
-
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  top:40%;
+  font-family: Arial;
+  font-size: 50px;
+  font-weight: 600;
 }
-.header__purpose{
-
+.header__citata{
+  max-width: 1000px;
+  margin:80px auto;
+  text-align: center;
+  position: relative;
+  top:50%;
+  font-family: Arial;
+  font-size: 24px;
+  font-weight: 600;
 }
 .main{
-
+  margin-top: 50px;
+  padding: 20px 40px;
+  max-width: 100%;
+  color: black;
+  display: flex;
+  justify-content: space-between;
 }
 .main__profile{
-
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 10px;
+  max-width: 30%;
+  height: 500px;
+  padding: 20px;
+  font-family: "Book Antiqua";
+  font-weight: 800;
+  font-size: 22px;
+  color: black;
+}
+.main__profile_photo{
+  max-width: 94%;
+  margin: auto;
+}
+.main__profile_photo img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  border-radius: 100%;
+}
+.main__profile_name{
+  padding: 10px;
+  margin-top: 20px;
+}
+.main__profile_date{
+  padding: 10px;
+}
+.main__profile_nation{
+  padding: 10px;
+}
+.main__profile_socseti{
+  padding: 10px;
 }
 .main__info{
-
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  max-width: 60%;
+  height: 500px;
+  padding: 20px;
+  font-family: "Book Antiqua";
+  font-weight: 800;
+  font-size: 22px;
+  color: black;
+}
+.main__info_about{
+  margin: 20px;
+  line-height: 35px;
+}
+.main__info_about h2{
+  margin-bottom: 20px;
+}
+.main__info_about span {
+  margin-left: 20px;
+}
+.main__info_purpose{
+  margin: 15px;
+  line-height: 35px;
+}
+.main__info_purpose h2{
+  margin-bottom: 16px;
+}
+.main__info_purpose span{
+  margin-left:20px
+}
+.main__info_citata{
+  margin: 15px;
+  line-height: 35px;
+}
+.main__info_citata h2 {
+  margin-bottom: 16px;
+}
+.main__info_citata span {
+  margin-left: 20px;
 }
 .footer{
-
+  max-width: 100%;
 }
