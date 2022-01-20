@@ -5,7 +5,7 @@ import auth from "./features/auth";
 import { trainerReducer } from "./features/trainer";
 import { subscriptionsReducer } from "./features/subscription";
 import { profileReducer } from "./features/profile";
-import { adminReducer } from "./features/admin"
+import { adminReducer } from "./features/admin";
 
 const logger = createLogger({
   diff: true,
