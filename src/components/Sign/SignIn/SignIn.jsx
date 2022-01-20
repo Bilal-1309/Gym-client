@@ -119,13 +119,13 @@ export default function SignIn() {
             />
           </div>
 
-          <button
+        <Link to='/'> <button
             onClick={handleSubmit}
             disabled={!formValid}
             className={styles.button5}
           >
             Login
-          </button>
+          </button></Link> 
         </form>
         {/* <span>У вас нет акаунта?</span> */}
         <div className={styles.homeButton}>

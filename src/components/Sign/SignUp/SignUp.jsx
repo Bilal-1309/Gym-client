@@ -183,13 +183,13 @@ export default function SignUp() {
             />
           </div>
 
-          <button
+         <Link to='/signin'> <button
             onClick={handleSubmit}
             disabled={!formValid}
             className={styles.button5}
           >
             зарегистрироваться
-          </button>
+          </button></Link>
         </div>
         <div className={styles.main}>
           <Link to="/" className={styles.a}>
