@@ -22,22 +22,59 @@ export const trainerReducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       }
-      default:
-        return state
+    case 'trainers/delete/pending':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'trainers/delete/fullfilled':
+      return {
+        ...state,
+        trainers: state.trainers.filter((item) => {
+          if (item !== action.payload) {
+            return item
+          }
+        })
+      }
+    case 'trainers/delete/rejected':
+      return {
+        ...state,
+        error: action.payload
+      }
+    default:
+      return state
   }
 }
 
 export const loadTrainers = () => {
-  return async(dispatch) => {
-    dispatch({type: 'trainers/load/pending'});
+  return async (dispatch) => {
+    dispatch({ type: 'trainers/load/pending' });
 
     try {
       const res = await fetch('http://localhost:5000/users/trainers')
       const json = await res.json()
 
-      dispatch({type: 'trainers/load/fullfilled', payload: json})
-    } catch(error) {
-      dispatch({type: 'trainers/load/rejected', payload: error})
+      dispatch({ type: 'trainers/load/fullfilled', payload: json })
+    } catch (error) {
+      dispatch({ type: 'trainers/load/rejected', payload: error })
+    }
+  }
+}
+
+export const deleteTrainers = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: 'trainers/delete/pending' })
+
+    try {
+      const res = await fetch(`http://localhost:5000/users/trainers/${id}`, {
+        method: "DELETE"
+      })
+      const json = res.json()
+      
+      dispatch({ type: 'trainers/delete/fullfilled', payload: id })
+    }
+    catch (error) {
+      dispatch({ type: 'trainers/delete/rejected', payload: error })
     }
   }
 }
