@@ -21,25 +21,16 @@ const Subscriptions = () => {
         <div className={styles.carts__items}>
           {subscriptions.map((subscription) => {
             return (
-              <>
-                <figure className={styles.cart} key={subscription._id}>
-                  <h2 className={styles.cart__img__title}>{subscription.name}</h2>
-                  <img
-                    src={`http://localhost:5000/${subscription.img}`}
-                    alt=""
-                  />
-                  <figcaption>
+              <figure className={styles.cart} key={subscription._id}>
+                <h2 className={styles.cart__img__title}>{subscription.name}</h2>
+                <img src={`http://localhost:5000/${subscription.img}`} alt="" />
+                <figcaption>
                   <h3 className={styles.cart__price}>{subscription.price} ₽</h3>
-                    <p>
-                      Абонемент на: {subscription.time} дней
-                    </p>
-                    <p>
-                      {subscription.text}
-                    </p>
-                    <button>More Info</button>
-                  </figcaption>
-                </figure>
-              </>
+                  <p>Абонемент на: {subscription.time} дней</p>
+                  <p>{subscription.text}</p>
+                  <button>More Info</button>
+                </figcaption>
+              </figure>
             );
           })}
         </div>
