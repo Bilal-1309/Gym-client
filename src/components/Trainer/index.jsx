@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadTrainers } from '../../redux/features/trainer'
-import logo1 from "../Header/logog.png"
 import styles from '../Trainer/trainer.module.css'
 
 function Trainer() {
