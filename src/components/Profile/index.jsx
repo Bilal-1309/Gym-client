@@ -2,30 +2,37 @@ import React, { useEffect } from 'react';
 import styles from './profile.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadProfile } from '../../redux/features/profile';
+import { useParams } from 'react-router-dom';
 
 const Profile = () => {
 
   const dispatch = useDispatch();
 
+  const user = useSelector((state)=> state.profileReducer.user);
+
+  const token = useSelector((state)=> state.auth.token);
+
+  const {id} = useParams();
+
+  const userProfile = (user._id === id) ? user._id : null;
+
   useEffect(()=>{
     dispatch(loadProfile());
   },[dispatch]);
 
-  const user = useSelector((state)=> state.profileReducer.user);
-
   return (
     <div className={styles.profile}>
       <div className={styles.header}>
-        <div className={styles.header__name}>Билал Орзамиев</div>
+        <div className={styles.header__name}>{userProfile.name}</div>
         <div className={styles.header__citata}>Цель быть лучше себя вчерашнего! </div>
       </div>
       <div className={styles.main}>
         <div className={styles.main__profile}>
           <div className={styles.main__profile_photo}>
-            <img src="https://www.kino-teatr.ru/acter/album/182414/483770.jpg" alt=""/>
+            <img src={userProfile.img} alt=""/>
           </div>
           <div className={styles.main__profile_name}>
-            Имя: Билал Орзамиев
+            Имя: {userProfile.name}
           </div>
           <div className={styles.main__profile_date}>
             Возраст: 23
@@ -34,7 +41,7 @@ const Profile = () => {
             Нация: Нохчо
           </div>
           <div className={styles.main__profile_socseti}>
-            Соц.сети: obkh_1309
+            Соц.сети: {userProfile.name}
           </div>
         </div>
         <div className={styles.main__info}>

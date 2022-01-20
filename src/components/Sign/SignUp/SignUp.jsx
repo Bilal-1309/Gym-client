@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../../redux/features/auth";
 import styles from '../SignUp/signup.module.css'
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const signingUp = useSelector((state) => state.auth.signingUp);
+  const error = useSelector((state) => state.auth.error);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -73,8 +77,6 @@ export default function SignUp() {
     }
   }, [emailError, passwordError]);
 
-  const signingUp = useSelector((state) => state.auth.signingUp);
-  const error = useSelector((state) => state.auth.error);
 
   // const handleChangeLogin = (e) => {
   //   setEmail(e.target.value);
@@ -85,8 +87,8 @@ export default function SignUp() {
   // };
 
   const handleSubmit = () => {
-    dispatch(createUser(email, password));
-    
+    dispatch(createUser(email, password, name, weight));
+    navigate("/signin");
   };
 
   const blurHandler = (e) => {
