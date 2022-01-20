@@ -10,9 +10,9 @@ const Profile = () => {
 
   const users = useSelector(state => state.profileReducer.users)
 
- // const token = useSelector((state)=> state.auth.token);
+  const token = useSelector((state)=> state.auth.token);
 
-  //const userId = useSelector((state)=> state.auth.id);
+  const userId = useSelector((state)=> state.auth.id);
 
   const {id} = useParams();
 
