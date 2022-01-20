@@ -11,6 +11,10 @@ function Trainer() {
     dispatch(loadTrainers())
   }, [dispatch])
 
+  const handleClickTrainers = () => {
+    dispatch()
+  }
+
   return (
 
     <div className={styles.container}>
@@ -22,16 +26,24 @@ function Trainer() {
           return (
             <div className={styles.cart}>
               <div className={styles.block_cart}>
-                <img
-                  src={`http://localhost:5000/${trainer.img}`}
-                  alt="" />
-                <h3>{trainer.name}</h3>
-                <p>
-                  {trainer.description}
-                </p>
-                <p className={styles.star}>
-                ★ {trainer.rating}
-                </p>
+                <div className={styles.image}>
+                  <img
+                    src={`http://localhost:5000/${trainer.img}`}
+                    alt="" />
+                </div>
+                <div className={styles.info}>
+                  <h3>Имя: {trainer.name}</h3>
+                  <p>
+                    {trainer.description}
+                  </p>
+                  <p className={styles.star}>
+                    ★ {trainer.rating}
+                  </p>
+                </div>
+                <div className={styles.button}>
+                  <button
+                    onClick={handleClickTrainers}>Добавить тренера</button>
+                </div>
               </div>
             </div>
           )
