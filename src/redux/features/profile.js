@@ -15,7 +15,7 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        users: action.payload
+    users: action.payload
       }
     case 'profile/load/rejected':
       return {
@@ -37,7 +37,7 @@ export const profileReducer = (state = initialState, action) => {
           return item
         })
       };
-    case '=profile/update/image/fulfilled':
+    case 'profile/update/image/fulfilled':
       return {
         ...state,
         users: state.users.map((item)=> {
@@ -55,13 +55,12 @@ export const profileReducer = (state = initialState, action) => {
 
 export const loadUsers = () => {
   return async (dispatch) => {
-    dispatch({type: 'profile/load/pending'});
     try {
+      dispatch({type: 'profile/load/pending'});
+
       const res = await fetch(`http://localhost:5000/users`)
       const users = await res.json()
-
       dispatch({type: 'profile/load/fulfilled', payload: users})
-      console.log(users)
     }catch (e){
       dispatch({type: 'profile/load/rejected', payload: e})
     }

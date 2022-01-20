@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
@@ -6,21 +6,24 @@ import bg from "../../assets/bg1.png";
 import logo1 from "../../assets/logog.png";
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from '../../redux/features/auth'
+import { loadUsers } from '../../redux/features/profile';
+import { loadAdmin } from '../../redux/features/admin';
 
 
 const Header = () => {
 
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(loadUsers())
+  },[dispatch]);
+
   const token = useSelector(state => state.auth.token)
   const id = useSelector(state => state.auth.id)
   const users = useSelector(state => state.profileReducer.users)
+  const admin = users.find((item)=> item ? item.role === "admin" : null)
+console.log(admin)
 
-  const user = users.find((user)=> id === user._id)
-
-  const admin = users.find((admin) => id === admin._id && admin.role === 'admin')
-
-  console.log(admin)
-
-  const dispatch = useDispatch();
 
   const handleClickLogut = () => {
     dispatch(logOut());
@@ -41,7 +44,7 @@ const Header = () => {
               />
             </div>
             <div className={styles.header__navbar__text}>
-              {!token ? null : user ? (<NavLink
+              {!token ? null : id !== admin._id ? (<NavLink
                 className={styles.header__links}
                 to={`user/${id}`}
               >
@@ -49,7 +52,7 @@ const Header = () => {
               </NavLink>): (<NavLink
                 className={styles.header__links}
                 to={`admin/${id}`}>
-                Мой профиль
+                Админ
               </NavLink>)}
               {}
               <Link
