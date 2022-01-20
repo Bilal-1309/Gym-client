@@ -7,9 +7,19 @@ import logo1 from "../../assets/logog.png";
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from '../../redux/features/auth'
 
+
 const Header = () => {
 
   const token = useSelector(state => state.auth.token)
+  const id = useSelector(state => state.auth.id)
+  const users = useSelector(state => state.profileReducer.users)
+
+  const user = users.find((user)=> id === user._id)
+
+  const admin = users.find((admin) => id === admin._id && admin.role === 'admin')
+
+  console.log(admin)
+
   const dispatch = useDispatch();
 
   const handleClickLogut = () => {
@@ -31,6 +41,17 @@ const Header = () => {
               />
             </div>
             <div className={styles.header__navbar__text}>
+              {!token ? null : user ? (<NavLink
+                className={styles.header__links}
+                to={`user/${id}`}
+              >
+                Мой профиль
+              </NavLink>): (<NavLink
+                className={styles.header__links}
+                to={`admin/${id}`}>
+                Мой профиль
+              </NavLink>)}
+              {}
               <Link
                 className={styles.header__links}
                 to="subscription"
