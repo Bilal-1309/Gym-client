@@ -9,17 +9,25 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
-  const [emailError, setEmailError] = useState("поле ввода не может быть пустым" );
+  const [emailError, setEmailError] = useState(
+    "поле ввода не может быть пустым"
+  );
   const [password, setPassword] = useState("");
   const [passwordDirty, setPasswordDirty] = useState(false);
-  const [passwordError, setPasswordError] = useState("поле ввода не может быть пустым");
+  const [passwordError, setPasswordError] = useState(
+    "поле ввода не может быть пустым"
+  );
   const [formValid, setFormVAlid] = useState(false);
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
 
   const handleChangeEmail = (e) => {
+    console.log(1);
     setEmail(e.target.value);
     let regEmail =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!regEmail.test(String(e.target.value).toLowerCase())) {
       setEmailError("неправильно введен емейл");
     } else {
@@ -55,19 +63,21 @@ export default function SignIn() {
       case "password":
         setPasswordDirty(true);
         break;
+      default:
+        break;
     }
   };
 
-  const signingIn = useSelector((state) => state.auth.signingIn);
+
   const error = useSelector((state) => state.auth.error);
 
-  const handleChangeLogin = (e) => {
+  /* const handleChangeLogin = (e) => {
     setEmail(e.target.value);
   };
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
-  };
+  }; */
 
   const handleSubmit = () => {
     dispatch(login(email, password));
@@ -77,7 +87,7 @@ export default function SignIn() {
     <div className={styles.gradient}>
       <div className={styles.login__box}>
         <h2>Login</h2>
-        <form>
+        <form onSubmit={handleLogin}>
           {error}
 
           <div className={styles.user__box}>
@@ -113,7 +123,7 @@ export default function SignIn() {
           <button
             onClick={handleSubmit}
             disabled={!formValid}
-           className={styles.button5}
+            className={styles.button5}
           >
             Login
           </button>
