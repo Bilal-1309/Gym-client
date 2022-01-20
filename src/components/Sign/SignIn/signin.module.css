@@ -5,7 +5,7 @@ html {
 .gradient{
   margin: 0;
   font-family: sans-serif;
-  background: linear-gradient(45deg, #642b73, #8a5ed1, #5d26c1);
+  background: linear-gradient(144.94deg, #5942b7 -2.35%, #ae73e4 79.38%);
   background-size: 200% 200%;
   animation: gradient 10s ease infinite;
   width: 100%;
