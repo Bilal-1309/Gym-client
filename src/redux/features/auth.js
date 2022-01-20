@@ -3,7 +3,7 @@ const initialState = {
   signingIn: false,
   error: null,
   token: localStorage.getItem("token"),
-  id: localStorage.getItem("id")
+  id: localStorage.getItem("id"),
 };
 
 export default function auth(state = initialState, action) {
@@ -28,39 +28,36 @@ export default function auth(state = initialState, action) {
         error: action.error,
       };
 
+    case "application/signin/pending":
+      return {
+        ...state,
+        signingIn: true,
+        error: null,
+      };
 
+    case "application/signin/fulfilled":
+      return {
+        ...state,
+        signingIn: false,
+        id: action.payload.json.id,
+        token: action.payload.json.token,
+      };
 
-
-      case "application/signin/pending":
-        return {
-          ...state,
-          signingIn: true,
-          error: null,
-        };
-  
-      case "application/signin/fulfilled":
-        return {
-          ...state,
-          signingIn: false,
-          id: action.payload.json.id,
-          token:action.payload.json.token
-        };
-  
-      case "application/signin/rejected":
-        return {
-          ...state,
-          signingIn: false,
-          error: action.error,
-        };
-      case "application/logOut/fulfilled":
-        return {
-          ...state,
-          token: null
-        }
-      default:
-        return state;
+    case "application/signin/rejected":
+      return {
+        ...state,
+        signingIn: false,
+        error: action.error,
+      };
+    case "application/logOut/fulfilled":
+      return {
+        ...state,
+        token: null,
+      };
+    default:
+      return state;
   }
-};
+}
 
 export const createUser = (email, password, name, weight) => {
   return async (dispatch) => {
@@ -84,34 +81,34 @@ export const createUser = (email, password, name, weight) => {
   };
 };
 
+export const login = (email, password) => {
+  return async (dispatch) => {
+    dispatch({ type: "application/signin/pending" });
 
-export const login = (email,password) =>{
-    return async dispatch =>{
-        dispatch({ type: "application/signin/pending" });
+    const response = await fetch("http://localhost:5000/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
 
-        const response = await fetch("http://localhost:5000/users/login", {
-          method: "POST",
-          body: JSON.stringify({ email, password }),
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-    
-        const json = await response.json();
-        console.log(json);
-        if (json.error) {
-          dispatch({ type: "application/signin/rejected", error: json.error });
-        } else {
-          dispatch({ type: "application/signin/fulfilled", payload: {json} });
-          localStorage.setItem("token", json.token);
-          localStorage.setItem("id", json.id);
-        }
+    const json = await response.json();
+    console.log(json.token);
+
+    if (json.error) {
+      dispatch({ type: "application/signin/rejected", error: json.error });
+    } else {
+      dispatch({ type: "application/signin/fulfilled", payload: { json } });
+      localStorage.setItem("token", json.token);
+      localStorage.setItem("id", json.id);
     }
-}
+  };
+};
 
 export const logOut = () => {
   return async (dispatch) => {
-    dispatch({type: "application/logOut/fulfilled"});
+    dispatch({ type: "application/logOut/fulfilled" });
     localStorage.clear();
-  }
-}
+  };
+};
