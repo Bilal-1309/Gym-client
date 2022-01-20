@@ -72,7 +72,8 @@ export const createUser = (email, password, name, weight) => {
     });
 
     const json = await response.json();
-    console.log(json);
+
+
     if (json.error) {
       dispatch({ type: "application/signup/rejected", error: json.error });
     } else {
@@ -94,7 +95,6 @@ export const login = (email, password) => {
     });
 
     const json = await response.json();
-    console.log(json.token);
 
     if (json.error) {
       dispatch({ type: "application/signin/rejected", error: json.error });
