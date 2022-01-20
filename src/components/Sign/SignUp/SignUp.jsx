@@ -39,6 +39,11 @@ export default function SignUp() {
     }
   };
 
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+  };
+
   const passwordHandler = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length < 3 || e.target.value.length > 8) {
@@ -107,7 +112,7 @@ export default function SignUp() {
       case "Name":
         setNameDirty(true);
         break;
-      case "number":
+      case "weight":
         setWeightDirty(true);
         break;
     }
@@ -115,7 +120,7 @@ export default function SignUp() {
 
   return (
     <div className={styles.gradient}>
-    <div className={styles.login__box}>
+    <div className={styles.login__box} onSubmit={handleLogin}>
       <h2>регистрация</h2>
     <form>
       {error}
@@ -169,9 +174,9 @@ export default function SignUp() {
 
       <input
         onBlur={(e) => blurName(e)}
-        name="number"
+        name="weight"
         type="number"
-        placeholder="number"
+        placeholder="weight"
         value={weight}
         onChange={(e) => weightHandler(e)}
       />
