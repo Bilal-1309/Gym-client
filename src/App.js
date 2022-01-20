@@ -7,6 +7,7 @@ import SignUp from './components/Sign/SignUp/SignUp';
 import { store } from './redux/configureStore';
 import Trainer from './components/Trainer/index'
 import Profile from './components/Profile';
+import Admin from './components/Admin';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />}/>
         <Route path='/user/:id' element={<Profile/>}/>
+        <Route path='/admin/:id' element={<Admin/>}/>
       </Routes>
     </BrowserRouter>
   </Provider>
