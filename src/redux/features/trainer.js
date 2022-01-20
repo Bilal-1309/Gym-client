@@ -31,9 +31,10 @@ export const trainerReducer = (state = initialState, action) => {
       return {
         ...state,
         trainers: state.trainers.filter((item) => {
-          if (item !== action.payload) {
+          if (item._id !== action.payload) {
             return item
           }
+          return state
         })
       }
     case 'trainers/delete/rejected':
@@ -66,10 +67,9 @@ export const deleteTrainers = (id) => {
     dispatch({ type: 'trainers/delete/pending' })
 
     try {
-      const res = await fetch(`http://localhost:5000/users/trainers/${id}`, {
+      const res = await fetch(`http://localhost:5000/admin/trainers/${id}`, {
         method: "DELETE"
       })
-      const json = res.json()
       
       dispatch({ type: 'trainers/delete/fullfilled', payload: id })
     }
