@@ -5,7 +5,7 @@ import logo from "./logo.png";
 
 const index = () => {
   return (
-    <div className={styles.gallery__container}>
+    <div id="gallery" className={styles.gallery__container}>
       <div className={styles.gallery__block}>
         <h1 className={styles.gallery__title}>Галерея</h1>
         <div className={styles.gallery__row}>
@@ -40,7 +40,7 @@ const index = () => {
             </div>
           </div>
           <div className={styles.gallery__photo}>
-            <img id="gallery" src={photo1} alt="" />
+            <img src={photo1} alt="" />
           </div>
         </div>
 
