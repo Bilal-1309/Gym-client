@@ -7,7 +7,6 @@ import logo1 from "../../assets/logog.png";
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from '../../redux/features/auth'
 import { loadUsers } from '../../redux/features/profile';
-import { loadAdmin } from '../../redux/features/admin';
 
 
 const Header = () => {
@@ -21,9 +20,9 @@ const Header = () => {
   const token = useSelector(state => state.auth.token)
   const id = useSelector(state => state.auth.id)
   const users = useSelector(state => state.profileReducer.users)
+  console.log(users)
   const admin = users.find((item)=> item ? item.role === "admin" : null)
 console.log(admin)
-
 
   const handleClickLogut = () => {
     dispatch(logOut());
@@ -44,7 +43,7 @@ console.log(admin)
               />
             </div>
             <div className={styles.header__navbar__text}>
-              {!token ? null : id !== admin._id ? (<NavLink
+              {!token ? null : admin.role !== "admin" ? (<NavLink
                 className={styles.header__links}
                 to={`user/${id}`}
               >

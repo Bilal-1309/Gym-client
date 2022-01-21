@@ -71,22 +71,22 @@ export const uploadAvatar = (file, id) => {
   return async (dispatch, getState) => {
     const state = getState();
 
-    dispatch({type: "profile/update/image/pending"});
+    dispatch({ type: "profile/update/image/pending" });
     try {
       const formData = new FormData();
       formData.append("img", file);
       const res = await fetch(`http://localhost:5000/users/${id}`, {
-        method: "POST",
+        method: "PATCH",
         body: formData,
         headers: {
-          Authorization: `Bearer ${state.authentication.token}`
-        }
-      })
+          Authorization: `Bearer ${state.auth.token}`,
+        },
+      });
       const data = await res.json();
 
-      dispatch({type: "profile/update/image/fulfilled", payload: data})
-    }catch (error) {
-      dispatch({type: "profile/update/image/rejected", payload: error})
+      dispatch({ type: "profile/update/image/fulfilled", payload: data });
+    } catch (error) {
+      dispatch({ type: "profile/update/image/rejected", payload: error });
     }
-  }
+  };
 };
