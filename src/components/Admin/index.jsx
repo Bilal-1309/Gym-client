@@ -25,6 +25,8 @@ const Admin = () => {
     dispatch(loadTrainers())
   }, [dispatch])
 
+
+
   return (
     <div className={styles.admin__container}>
       <div className={styles.admin__block}>
@@ -36,6 +38,13 @@ const Admin = () => {
         </div>
         <div className={styles.admin__row}>
           <div><h1>Тренеры</h1></div>
+          <div className={styles.admin__postInputs}>
+            {/* <input type="text" /> <br />
+            <input type="text" /> <br />
+            <input type="text" /> <br />
+            <input type="text" /> <br />
+            <button>Отправить</button> */}
+          </div>
           <div className={styles.admin__trainers}>
             {trainers.map((item) => {
               return (
