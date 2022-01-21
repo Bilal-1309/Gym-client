@@ -42,6 +42,22 @@ export const trainerReducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       }
+    case 'trainers/post/pending':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'trainers/post/fulfilled':
+      return {
+        ...state,
+        trainers: [...state.trainers, action.payload],
+        loading: false
+      }
+    case 'trainers/post/rejected':
+      return {
+        ...state,
+        error: action.payload
+      }
     default:
       return state
   }
@@ -67,7 +83,7 @@ export const deleteTrainers = (id) => {
     dispatch({ type: 'trainers/delete/pending' })
 
     try {
-      const res = await fetch(`http://localhost:5000/admin/trainers/${id}`, {
+      await fetch(`http://localhost:5000/admin/trainers/${id}`, {
         method: "DELETE"
       })
       
@@ -75,6 +91,24 @@ export const deleteTrainers = (id) => {
     }
     catch (error) {
       dispatch({ type: 'trainers/delete/rejected', payload: error })
+    }
+  }
+}
+
+export const addTrainers = (text) => {
+  return async (dispatch) => {
+    dispatch({ type: "trainers/post/pending" })
+    try {
+      let options = {
+        method: "POST",
+        body: JSON.stringify(text),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      };
+      let url = "http://localhost:5000/admin/trainers";
+      await fetch (url, options)
+      dispatch({ type: "trainers/post/fulfilled", payload: text })
+    } catch (error) {
+      dispatch({ type: "trainers/post/rejected", payload: error })
     }
   }
 }
