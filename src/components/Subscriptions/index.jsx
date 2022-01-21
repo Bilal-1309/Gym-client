@@ -6,6 +6,8 @@ import styles from "./subscription.module.css";
 const Subscriptions = () => {
   const dispatch = useDispatch();
 
+  const loading = useSelector((state) => state.subscriptionsReducer.loading);
+
   useEffect(() => {
     dispatch(loadSubscriptions());
   }, [dispatch]);
@@ -19,8 +21,11 @@ const Subscriptions = () => {
       <div className={styles.container}>
         <h1 className={styles.carts__title}>Абонементы</h1>
         <div className={styles.carts__items}>
+
           {subscriptions.map((subscription) => {
-            return (
+            return loading ? (
+              "идет загрузка"
+            ) : (
               <figure className={styles.cart} key={subscription._id}>
                 <h2 className={styles.cart__img__title}>{subscription.name}</h2>
                 <img src={`http://localhost:5000/${subscription.img}`} alt="" />
@@ -33,6 +38,7 @@ const Subscriptions = () => {
               </figure>
             );
           })}
+          
         </div>
       </div>
     </div>
