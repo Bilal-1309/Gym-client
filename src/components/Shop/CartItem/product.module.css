@@ -1,0 +1,51 @@
+tr {
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+}
+
+td {
+  padding: 5px;
+  font-size: 20px;
+}
+
+.cart__tr {
+  border-bottom: 1px solid rgb(163, 163, 163);
+  height: 60px;
+}
+
+.cart__tr img {
+  width: 40px;
+}
+
+.cart__item__id {
+  width: 20px;
+}
+
+.cart__img {
+  width: 40px;
+}
+
+.cart__img img {
+  width: 100%;
+}
+
+.cart__item__amount {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart__item__amount button {
+  background-color: inherit;
+  border: 1px solid rgb(0, 162, 255);
+  color: rgb(0, 162, 255);
+  border-radius: 3px;
+}
+
+.cart__item__delete {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
