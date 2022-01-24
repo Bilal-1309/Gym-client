@@ -53,10 +53,10 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         users: state.users.map((item)=> {
           if(item._id === action.payload._id) {
-            item.name = action.payload.name,
-            item.aboutMe = action.payload.aboutMe,
-              item.age = action.payload.age,
-              item.purposeTrain = action.payload.purposeTrain,
+            item.name = action.payload.name
+            item.aboutMe = action.payload.aboutMe
+              item.age = action.payload.age
+              item.purposeTrain = action.payload.purposeTrain
               item.favoriteQuote = action.payload.favoriteQuote
             return item
           }
