@@ -71,6 +71,7 @@ export const loadTrainers = () => {
       const res = await fetch('http://localhost:5000/users/trainers')
       const json = await res.json()
 
+
       dispatch({ type: 'trainers/load/fullfilled', payload: json })
     } catch (error) {
       dispatch({ type: 'trainers/load/rejected', payload: error })
@@ -86,7 +87,7 @@ export const deleteTrainers = (id) => {
       await fetch(`http://localhost:5000/admin/trainers/${id}`, {
         method: "DELETE"
       })
-      
+
       dispatch({ type: 'trainers/delete/fullfilled', payload: id })
     }
     catch (error) {
@@ -95,18 +96,27 @@ export const deleteTrainers = (id) => {
   }
 }
 
-export const addTrainers = (text) => {
+export const addTrainers = (name, raiting, photo, info) => {
+
   return async (dispatch) => {
     dispatch({ type: "trainers/post/pending" })
     try {
       let options = {
         method: "POST",
-        body: JSON.stringify(text),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
+        body: JSON.stringify({
+          name: name,
+          rating: raiting,
+          img: photo,
+          description: info
+        }),
+        headers: { "Content-type": "application/json" },
       };
-      let url = "http://localhost:5000/admin/trainers";
-      await fetch (url, options)
-      dispatch({ type: "trainers/post/fulfilled", payload: text })
+
+      const res = await fetch("http://localhost:5000/admin/trainers", options)
+      const trainer = await res.json()
+      console.log(trainer)
+
+      dispatch({ type: "trainers/post/fulfilled", payload: trainer })
     } catch (error) {
       dispatch({ type: "trainers/post/rejected", payload: error })
     }
