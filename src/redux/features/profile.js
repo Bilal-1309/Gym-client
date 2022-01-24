@@ -48,6 +48,21 @@ export const profileReducer = (state = initialState, action) => {
           return state.users;
         })
       }
+    case 'profile/update/info/fulfilled':
+      return {
+        ...state,
+        users: state.users.map((item)=> {
+          if(item._id === action.payload._id) {
+            item.name = action.payload.name,
+            item.aboutMe = action.payload.aboutMe,
+              item.age = action.payload.age,
+              item.purposeTrain = action.payload.purposeTrain,
+              item.favoriteQuote = action.payload.favoriteQuote
+            return item
+          }
+          return state.users;
+        })
+      }
     default:
       return state
   }
@@ -88,5 +103,36 @@ export const uploadAvatar = (file, id) => {
     } catch (error) {
       dispatch({ type: "profile/update/image/rejected", payload: error });
     }
+  };
+};
+
+export const updateUserProfile = (
+  id,
+  name,
+  age,
+  aboutMe,
+  purposeTrain,
+  favoriteQuote
+) => {
+  const userInfo = {
+    name,
+    age,
+    aboutMe,
+    purposeTrain,
+    favoriteQuote
+  };
+  return (dispatch) => {
+    fetch(`http://localhost:5000/profile/update/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify(userInfo),
+    })
+    .then((res)=> res.json())
+    .then.data((data)=> {
+      dispatch({type: "profile/update/info/fulfilled", payload: data})
+    });
   };
 };
