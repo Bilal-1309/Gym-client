@@ -10,9 +10,10 @@ import logo from "../../assets/logog.png";
 const Shop = () => {
   const dispatch = useDispatch();
 
+  const token = useSelector((state) => state.auth.token);
   const products = useSelector((state) => state.productsReducer.products);
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
-  console.log(cartItems.productsCart);
+  const loading = useSelector((state) => state.cartReducer.loading);
 
   useEffect(() => {
     dispatch(loadProducts());
@@ -35,30 +36,41 @@ const Shop = () => {
         <Cart />
       </div>
       <div className={styles.shop__main}>
-        {products.map((product) => {
 
-          const isCartItem = cartItems ? cartItems.productsCart.find(item => item.product === product._id) : null
+        {!loading
+          ? products.map((product) => {
+            
+              const isCartItem = !token ? null : cartItems.productsCart.find(
+               (item) => item.product === product._id
+              ) 
 
-          return (
-            <div className={styles.product__cart} key={product._id}>
-              <div className={styles.product__cart__img}>
-                <img src={product.img} alt="product" />
-              </div>
-              <div className={styles.product__cart__text}>
-                <h5>{product.name}</h5>
-                <p>Упаковка: {product.weight} гр</p>
-                <p> Цена: {product.price} ₽</p>
-              </div>
+              return (
+                <div className={styles.product__cart} key={product._id}>
+                  <div className={styles.product__cart__img}>
+                    <img src={product.img} alt="product" />
+                  </div>
+                  <div className={styles.product__cart__text}>
+                    <h5>{product.name}</h5>
+                    <p>Упаковка: {product.weight} гр</p>
+                    <p> Цена: {product.price} ₽</p>
+                  </div>
 
-              <button 
-              disabled={isCartItem}
-              onClick={() => handleBuyProduct(product._id)}
-              >
-                {isCartItem ? 'В корзине' : 'Купить'}
-              </button>
-            </div>
-          );
-        })}
+                  {!token ? (
+                    <NavLink to={"/signin"}>
+                      <button>Купить</button>
+                    </NavLink>
+                  ) : (
+                    <button
+                      disabled={isCartItem}
+                      onClick={() => handleBuyProduct(product._id)}
+                    >
+                      {isCartItem ? "В корзине" : "Купить"}
+                    </button>
+                  )}
+                </div>
+              );
+            })
+          : "идет загрузка"}
       </div>
     </div>
   );

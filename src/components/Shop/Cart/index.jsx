@@ -11,30 +11,36 @@ const Cart = () => {
 
   const [opened, setOpened] = useState(false);
 
+  const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.id);
   const loading = useSelector((state) => state.cartReducer.loading);
-  const loadingProducts = useSelector((state) => state.productsReducer.loading);
+
+
+  const cartItems = useSelector((state) => state.cartReducer.cartItems);
+    
+  const handleClose = () => {
+    setOpened(false);
+  };
+
+  // cartItems.productsCart.length
+
+  console.log(loading, 'lorem');
 
   useEffect(() => {
     dispatch(loadCartItems(userId));
   }, [dispatch, userId]);
 
-  const cartItems = useSelector((state) => state.cartReducer.cartItems);
   
-  console.log(loading && loadingProducts ? "идет загрузка" : cartItems.productsCart);
-  
-  const handleClose = () => {
-    setOpened(false);
-  };
-
+ 
   return (
     <>
       <div className={styles.cartButton} onClick={() => setOpened(true)}>
         <img src={cartIcon} alt="cart" />
-        <span>{cartItems.length}</span>
+        <span>{!loading && cartItems.productsCart ? cartItems.productsCart.length : '...' }</span>
       </div>
-
-      {!opened ? null : (
+      
+      {!token ? null :
+      !opened ? null : 
         <div className={styles.cart__window}>
           <button className={styles.cart__window__btn} onClick={handleClose}>
             Закрыть
@@ -58,7 +64,7 @@ const Cart = () => {
             </table>
           {/* )} */}
         </div>
-      )}
+      }
     </>
   );
 };

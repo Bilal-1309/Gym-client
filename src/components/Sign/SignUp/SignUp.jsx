@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../../redux/features/auth";
+import { createCart } from "../../../redux/features/cart";
 import styles from "../SignUp/signup.module.css";
 
 export default function SignUp() {
@@ -9,6 +10,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const error = useSelector((state) => state.auth.error);
+  const user = useSelector((state) => state.auth.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
