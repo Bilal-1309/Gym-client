@@ -6,18 +6,39 @@ import { addTrainers } from "../../redux/features/trainer";
 const AddTrainer = () => {
 
   const dispatch = useDispatch();
-  const [addName, setAddName] = useState("");
-  const [addRating, setAddRating] = useState("");
-  const [addPhoto, setAddPhoto] = useState("");
-  const [addInfo, setAddInfo] = useState("")
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [info, setInfo] = useState("");
+
+  const handleName = (e) => {
+    setName(e.target.value)
+  }
+  const handleRaiting = (e) => {
+    setRating(e.target.value)
+  }
+  const handlePhoto = (e) => {
+    setPhoto(e.target.value)
+  }
+  const handleInfo = (e) => {
+    setInfo(e.target.value)
+  }
+
+  const handleClick = () => {
+    dispatch(addTrainers(name, rating, photo, info));
+    setName("");
+    setRating("");
+    setPhoto("");
+    setInfo("");
+  };
 
   return (
     <div>
-      <input type="text" /> <br />
-      <input type="text" /> <br />
-      <input type="text" /> <br />
-      <input type="text" /> <br />
-      <button>Отправить</button>
+      <input placeholder="Имя Фамилия" onChange={handleName} value={name} type="text" /> <br />
+      <input placeholder="Рейтинг" onChange={handleRaiting} value={rating} type="text" /> <br />
+      <input placeholder="Фото" onChange={handlePhoto} value={photo} type="text" /> <br />
+      <input placeholder="Описание" onChange={handleInfo} value={info} type="text" /> <br />
+      <button onClick={handleClick}>Отправить</button>
     </div>
   );
 };
