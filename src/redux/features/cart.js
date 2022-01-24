@@ -33,13 +33,13 @@ export const cartReducer = (state = initialState, action) => {
     case "product/increase/fulfilled":
       return {
         ...state,
-        cartItems: action.payload.data.map(cartItem => {
-          if(action.payload.productId === cartItem.product) {
-            cartItem.amount += 1
-            return cartItem
+        cartItems: action.payload.data.map((cartItem) => {
+          if (action.payload.productId === cartItem.product) {
+            cartItem.amount += 1;
+            return cartItem;
           }
-          return state
-        })
+          return state;
+        }),
       };
 
     default:
@@ -53,7 +53,7 @@ export const removeCartItem = (product, id) => {
     try {
       const res = await fetch(`http://localhost:5000/carts/delete/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({ product: product}),
+        body: JSON.stringify({ product: product }),
         headers: {
           "Content-type": "application/json",
         },
@@ -108,18 +108,23 @@ export const increaseAmount = (productId, id) => {
   return async (dispatch) => {
     dispatch({ type: "product/increase/pending" });
     try {
-      const res = await fetch(`http://localhost:5000/carts/product/increment/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ product: productId }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:5000/carts/product/increment/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
 
       const data = await res.json();
       console.log(productId, data.productsCart);
 
-      dispatch({ type: "product/increase/fulfilled", payload: {productId, data: data.productsCart} });
+      dispatch({
+        type: "product/increase/fulfilled",
+        payload: { productId, data: data.productsCart },
+      });
     } catch (error) {
       dispatch({ type: "product/increase/rejected", payload: error });
     }

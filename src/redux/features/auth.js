@@ -19,6 +19,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         signingUp: false,
+        user: action.payload
       };
 
     case "application/signup/rejected":
@@ -63,7 +64,7 @@ export const createUser = (email, password, name, weight) => {
   return async (dispatch) => {
     dispatch({ type: "application/signup/pending" });
 
-    const response = await fetch("http://localhost:5000/users/register", {
+    const responseRegister = await fetch("http://localhost:5000/users/register", {
       method: "POST",
       body: JSON.stringify({ email, password, name, weight }),
       headers: {
@@ -71,13 +72,24 @@ export const createUser = (email, password, name, weight) => {
       },
     });
 
-    const json = await response.json();
+    const jsonRegister = await responseRegister.json();
+
+    const responseCart = await fetch(`http://localhost:5000/carts`, {
+      method: "POST",
+      body: JSON.stringify({ user: jsonRegister._id }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
+    const jsonCart = await responseCart.json()
 
 
-    if (json.error) {
-      dispatch({ type: "application/signup/rejected", error: json.error });
+    if (jsonRegister.error) {
+      dispatch({ type: "application/signup/rejected", error: jsonRegister.error });
     } else {
-      dispatch({ type: "application/signup/fulfilled", payload: json });
+      dispatch({ type: "application/signup/fulfilled", payload: jsonRegister });
+      dispatch({ type: "cart/create/fulfilled", payload: jsonCart });
     }
   };
 };
