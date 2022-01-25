@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from './profile.module.css'
+import styless from '../Subscriptions/subscription.module.css'
+import stylesss from '../Trainer/trainer.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUsers, loadUserSubscription, uploadAvatar } from '../../redux/features/profile';
 import { useParams } from 'react-router-dom';
 import { loadSubscriptions } from '../../redux/features/subscription';
 import { loadTrainers } from '../../redux/features/trainer';
 import { loadCartItems } from '../../redux/features/cart';
+import Subscriptions from '../Subscriptions';
 
 const Profile = () => {
 
   const dispatch = useDispatch();
-
-  const users = useSelector(state => state.profileReducer.users)
-
-  const {id} = useParams();
-
-  const userProfile = users.find((user)=> user._id === id);
-
-  const subscriptions = useSelector(state => state.subscriptionsReducer.subscriptions);
-
-  const subscription = useSelector(state => state.profileReducer.subscription);
 
   useEffect(()=>{
     dispatch(loadUsers())
@@ -33,8 +26,28 @@ const Profile = () => {
     dispatch(loadSubscriptions())
   },[dispatch])
 
-  const subsId = subscriptions.find((item)=> item.subscription === subscription.subscription)
-  console.log(subsId)
+  useEffect(()=>{
+    dispatch(loadTrainers())
+  },[dispatch])
+
+  const users = useSelector(state => state.profileReducer.users)
+
+  const {id} = useParams();
+
+  const userProfile = users.find((user)=> user._id === id);
+
+  const subscriptions = useSelector(state => state.subscriptionsReducer.subscriptions);
+
+  const subscription = useSelector(state => state.profileReducer.subscription);
+
+  const subsId = subscriptions.find((item)=> item._id === subscription.subscription)
+
+  const trainers = useSelector(state => state.trainerReducer.trainers);
+console.log(trainers)
+  const trainer = useSelector(state => state.profileReducer.subscription.trainer);
+  console.log(trainer)
+  const trainerId= trainers.find((item)=> item._id === trainer);
+  console.log(trainerId)
 
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState('');
@@ -73,7 +86,7 @@ const Profile = () => {
 
   const inputIcon = '*';
 
-  if(!users.length) {
+  if(!users.length || !subsId || !trainerId) {
     return "загрузка"
   }
   return (
@@ -165,9 +178,41 @@ const Profile = () => {
         </div>
       </div>
       <div className={styles.footer}>
-        <div className={styles.footer__subscription}>
+        <div className={styless.footer__subscription}>
+          <figure className={styless.cart} key={subsId._id}>
+            <h2 className={styless.cart__img__title}>{subsId.name}</h2>
+            <img src={`http://localhost:5000/${subsId.img}`} alt="" />
+            <figcaption>
+              <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
+              <p>Абонемент на: {subsId.time} дней</p>
+              <p>{subsId.text}</p>
+              <button>More Info</button>
+            </figcaption>
+          </figure>
         </div>
-        <div className={styles.footer__trainer}></div>
+        <div className={styles.footer__trainer}>
+          <div className={stylesss.cart}>
+            <div className={stylesss.block_cart}>
+              <div className={stylesss.image}>
+                <img
+                  src={`http://localhost:5000/${trainerId.img}`}
+                  alt="" />
+              </div>
+              <div className={stylesss.info}>
+                <h3>Имя: {trainerId.name}</h3>
+                <p>
+                  {trainerId.description}
+                </p>
+                <p className={stylesss.star}>
+                  ★ {trainerId.rating}
+                </p>
+              </div>
+              <div className={stylesss.button}>
+                <button>Добавить тренера</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

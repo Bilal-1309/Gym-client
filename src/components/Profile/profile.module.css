@@ -115,6 +115,7 @@
 }
 .footer{
   max-width: 100%;
+  display: flex;
 }
 .editInput {
   border: none;
