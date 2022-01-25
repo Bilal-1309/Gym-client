@@ -18,7 +18,7 @@ const AddTrainer = () => {
     setRating(e.target.value)
   }
   const handlePhoto = (e) => {
-    setPhoto(e.target.value)
+    setPhoto(e.target.files[0])
   }
   const handleInfo = (e) => {
     setInfo(e.target.value)
@@ -36,7 +36,7 @@ const AddTrainer = () => {
     <div>
       <input placeholder="Имя Фамилия" onChange={handleName} value={name} type="text" /> <br />
       <input placeholder="Рейтинг" onChange={handleRaiting} value={rating} type="text" /> <br />
-      <input placeholder="Фото" onChange={handlePhoto} value={photo} type="text" /> <br />
+      <input placeholder="Фото" onChange={(e) => handlePhoto(e)} type="file" /> <br />
       <input placeholder="Описание" onChange={handleInfo} value={info} type="text" /> <br />
       <button onClick={handleClick}>Отправить</button>
     </div>
