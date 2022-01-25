@@ -116,3 +116,12 @@
 .footer{
   max-width: 100%;
 }
+.editInput {
+  border: none;
+  border-bottom: 1px solid lightgrey;
+  margin-left: 10px;
+  width: 250px;
+  font-size: 20px;
+  padding-left: 5px;
+  font-family: 'Creepster', serif;
+}

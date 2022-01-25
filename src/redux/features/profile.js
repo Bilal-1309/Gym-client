@@ -1,5 +1,9 @@
+import { cartReducer } from './cart';
+
 const initialState = {
   users:[],
+  subscription: {},
+  trainer: {},
   loading: false,
   error: null
 };
@@ -63,6 +67,12 @@ export const profileReducer = (state = initialState, action) => {
           return state.users;
         })
       }
+    case 'profile/subscription/fulfilled':
+      return {
+        ...state,
+        subscription: action.payload,
+        loading: false
+      }
     default:
       return state
   }
@@ -78,6 +88,19 @@ export const loadUsers = () => {
       dispatch({type: 'profile/load/fulfilled', payload: users})
     }catch (e){
       dispatch({type: 'profile/load/rejected', payload: e})
+    }
+  }
+};
+
+export const loadUserSubscription = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: 'profile/subscription/pending'});
+      const res = await fetch(`http://localhost:5000/carts/${id}`);
+      const subscription = await res.json();
+      dispatch({type: 'profile/subscription/fulfilled', payload: subscription})
+    }catch (e) {
+      dispatch({type: 'profile/subscription/rejected', payload: e})
     }
   }
 };
