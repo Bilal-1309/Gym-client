@@ -47,17 +47,17 @@ export const trainerReducer = (state = initialState, action) => {
         ...state,
         loading: true
       }
-    case 'trainers/post/fulfilled':
-      return {
-        ...state,
-        trainers: [...state.trainers, action.payload],
-        loading: false
-      }
     case 'trainers/post/rejected':
       return {
         ...state,
         error: action.payload
       }
+
+    case "image/post/fulfilled": 
+    return {
+      ...state,
+      trainers: [...state.trainers, action.payload],
+    }
     default:
       return state
   }
@@ -106,19 +106,52 @@ export const addTrainers = (name, raiting, photo, info) => {
         body: JSON.stringify({
           name: name,
           rating: raiting,
-          img: photo,
           description: info
         }),
         headers: { "Content-type": "application/json" },
       };
 
-      const res = await fetch("http://localhost:5000/admin/trainers", options)
-      const trainer = await res.json()
-      console.log(trainer)
+      const resTrainer = await fetch("http://localhost:5000/admin/trainers", options)
+      const trainer = await resTrainer.json()
+      console.log(trainer._id)
+
+      const formData = new FormData();
+      formData.append("img", photo);
+      const resImage = await fetch(`http://localhost:5000/admin/trainers/image/${trainer._id}`, {
+        method: "PATCH",
+        body: formData,
+      });
+      const data = await resImage.json();
+
 
       dispatch({ type: "trainers/post/fulfilled", payload: trainer })
+      dispatch({ type: "image/post/fulfilled", payload: data })
     } catch (error) {
       dispatch({ type: "trainers/post/rejected", payload: error })
     }
   }
 }
+
+export const uploadAvatar = (file, id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    dispatch({ type: "carService/update/image/pending" });
+    try {
+      const formData = new FormData();
+      formData.append("img", file);
+      const res = await fetch(`http://localhost:4000/carservice/${id}/avatar`, {
+        method: "PATCH",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${state.authentication.token}`,
+        },
+      });
+      const data = await res.json();
+
+      dispatch({ type: "carService/update/image/fulfilled", payload: data });
+    } catch (error) {
+      dispatch({ type: "carService/update/image/rejected", payload: error });
+    }
+  };
+};
