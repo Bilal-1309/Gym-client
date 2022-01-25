@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increaseAmount, removeCartItem } from "../../../redux/features/cart";
+import {
+  decreaseAmount,
+  increaseAmount,
+  removeCartItem,
+} from "../../../redux/features/cart";
 import styles from "./product.module.css";
 
 const CartItem = ({ productCart }) => {
@@ -13,6 +17,10 @@ const CartItem = ({ productCart }) => {
 
   const handleIncrement = (productId) => {
     dispatch(increaseAmount(productId, cartItems._id));
+  };
+
+  const handleDecrement = (productId) => {
+    dispatch(decreaseAmount(productId, cartItems._id));
   };
 
   const handleRemove = (product) => {
@@ -36,9 +44,8 @@ const CartItem = ({ productCart }) => {
                   </button>
                   <span>{productCart.amount}</span>
                   <button
-                  /* onClick={() =>
-                  handleDecrement(cartItem)
-                } */
+                    disabled={productCart.amount > 1 ? false : true}
+                    onClick={() => handleDecrement(product._id)}
                   >
                     -
                   </button>
@@ -55,6 +62,7 @@ const CartItem = ({ productCart }) => {
             </tr>
           );
         }
+        return null;
       })
     : "идет загрузка";
 };

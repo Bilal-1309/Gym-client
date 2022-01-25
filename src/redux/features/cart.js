@@ -33,15 +33,14 @@ export const cartReducer = (state = initialState, action) => {
     case "product/increase/fulfilled":
       return {
         ...state,
-        cartItems: {
-          productsCart: action.payload.data.map((cartItem) => {
-          if (action.payload.productId === cartItem.product) {
-            cartItem.amount += 1;
-            return cartItem;
-          }
-          return state;
-        })}
+        cartItems: action.payload,
       };
+    
+      case "product/decrease/fulfilled":
+        return {
+          ...state,
+          cartItems: action.payload,
+        };
 
     default:
       return state;
@@ -75,7 +74,7 @@ export const addCartItem = (product, id) => {
     try {
       const res = await fetch(`http://localhost:5000/carts/add/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({ product: product, amount: 1 }),
+        body: JSON.stringify({ product: product }),
         headers: {
           "Content-type": "application/json",
         },
@@ -113,7 +112,7 @@ export const increaseAmount = (productId, id) => {
         `http://localhost:5000/carts/product/increment/${id}`,
         {
           method: "PATCH",
-          body: JSON.stringify({product: productId, amount: 1}),
+          body: JSON.stringify({ product: productId }),
           headers: {
             "Content-type": "application/json",
           },
@@ -121,14 +120,34 @@ export const increaseAmount = (productId, id) => {
       );
 
       const data = await res.json();
-      console.log(productId, data);
 
-      dispatch({
-        type: "product/increase/fulfilled",
-        payload: { productId: productId, data: data.productsCart },
-      });
+      dispatch({ type: "product/increase/fulfilled", payload: data });
     } catch (error) {
       dispatch({ type: "product/increase/rejected", payload: error });
+    }
+  };
+};
+
+export const decreaseAmount = (productId, id) => {
+  return async (dispatch) => {
+    dispatch({ type: "product/decrease/pending" });
+    try {
+      const res = await fetch(
+        `http://localhost:5000/carts/product/decrement/${id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ product: productId }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      dispatch({ type: "product/decrease/fulfilled", payload: data });
+    } catch (error) {
+      dispatch({ type: "product/decrease/rejected", payload: error });
     }
   };
 };
