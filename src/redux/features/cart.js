@@ -33,13 +33,14 @@ export const cartReducer = (state = initialState, action) => {
     case "product/increase/fulfilled":
       return {
         ...state,
-        cartItems: action.payload.data.map((cartItem) => {
+        cartItems: {
+          productsCart: action.payload.data.map((cartItem) => {
           if (action.payload.productId === cartItem.product) {
             cartItem.amount += 1;
             return cartItem;
           }
           return state;
-        }),
+        })}
       };
 
     default:
@@ -112,6 +113,7 @@ export const increaseAmount = (productId, id) => {
         `http://localhost:5000/carts/product/increment/${id}`,
         {
           method: "PATCH",
+          body: JSON.stringify({product: productId, amount: 1}),
           headers: {
             "Content-type": "application/json",
           },
@@ -119,11 +121,11 @@ export const increaseAmount = (productId, id) => {
       );
 
       const data = await res.json();
-      console.log(productId, data.productsCart);
+      console.log(productId, data);
 
       dispatch({
         type: "product/increase/fulfilled",
-        payload: { productId, data: data.productsCart },
+        payload: { productId: productId, data: data.productsCart },
       });
     } catch (error) {
       dispatch({ type: "product/increase/rejected", payload: error });

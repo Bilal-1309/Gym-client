@@ -15,39 +15,37 @@ const Cart = () => {
   const userId = useSelector((state) => state.auth.id);
   const loading = useSelector((state) => state.cartReducer.loading);
 
-
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
-    
+
   const handleClose = () => {
     setOpened(false);
   };
-
-  // cartItems.productsCart.length
-
-  console.log(loading, 'lorem');
 
   useEffect(() => {
     dispatch(loadCartItems(userId));
   }, [dispatch, userId]);
 
-  
- 
   return (
     <>
       <div className={styles.cartButton} onClick={() => setOpened(true)}>
         <img src={cartIcon} alt="cart" />
-        <span>{!loading && cartItems.productsCart ? cartItems.productsCart.length : '...' }</span>
+        <span>
+          {token
+            ? !loading && cartItems.productsCart
+              ? cartItems.productsCart.length
+              : "..."
+            : null}
+        </span>
       </div>
-      
-      {!token ? null :
-      !opened ? null : 
+
+      {!token ? null : !opened ? null : (
         <div className={styles.cart__window}>
           <button className={styles.cart__window__btn} onClick={handleClose}>
             Закрыть
           </button>
-          {/* {!cartItems.length ? (
+          {!cartItems.productsCart.length ? (
             "В корзине нет товаров"
-          ) : ( */}
+          ) : (
             <table className={styles.cart__items}>
               <thead>
                 <tr>
@@ -58,13 +56,15 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cartItems.productsCart.map((productCart) => {
-                  return <CartItem key={productCart._id} productCart={productCart} />;
+                  return (
+                    <CartItem key={productCart._id} productCart={productCart} />
+                  );
                 })}
               </tbody>
             </table>
-          {/* )} */}
+          )}
         </div>
-      }
+      )}
     </>
   );
 };
