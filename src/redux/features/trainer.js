@@ -114,7 +114,6 @@ export const addTrainers = (name, raiting, photo, info) => {
       const resTrainer = await fetch("http://localhost:5000/admin/trainers", options)
       const trainer = await resTrainer.json()
       console.log(trainer._id)
-
       const formData = new FormData();
       formData.append("img", photo);
       const resImage = await fetch(`http://localhost:5000/admin/trainers/image/${trainer._id}`, {
@@ -131,27 +130,3 @@ export const addTrainers = (name, raiting, photo, info) => {
     }
   }
 }
-
-export const uploadAvatar = (file, id) => {
-  return async (dispatch, getState) => {
-    const state = getState();
-
-    dispatch({ type: "carService/update/image/pending" });
-    try {
-      const formData = new FormData();
-      formData.append("img", file);
-      const res = await fetch(`http://localhost:4000/carservice/${id}/avatar`, {
-        method: "PATCH",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${state.authentication.token}`,
-        },
-      });
-      const data = await res.json();
-
-      dispatch({ type: "carService/update/image/fulfilled", payload: data });
-    } catch (error) {
-      dispatch({ type: "carService/update/image/rejected", payload: error });
-    }
-  };
-};

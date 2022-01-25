@@ -17,7 +17,7 @@ const AddAbonement = () => {
     setName(e.target.value)
   };
   const handleImg = (e) => {
-    setImg(e.target.value)
+    setImg(e.target.files[0])
   };
   const handlePrice = (e) => {
     setPrice(e.target.value)
@@ -31,12 +31,13 @@ const AddAbonement = () => {
   const handleClick = () => {
     dispatch(addAbonements(name, img, price, time, text))
   }
+  console.log(img);
 
   return (
     <div className={styles.inputDiv}>
       <div className={styles.inputs}>
         <input onChange={handleName} type="text" value={name} placeholder="Название" />
-        <input onChange={handleImg} type="text" value={img} placeholder="Фото" />
+        <input onChange={(e) => handleImg(e)} type="file" placeholder="Фото" />
         <input onChange={handlePrice} type="text" value={price} placeholder="Цена" />
         <input onChange={handleTime} type="text" value={time} placeholder="Продолжительность" />
         <input onChange={handleText} type="text" value={text} placeholder="Описание" />
