@@ -78,6 +78,9 @@
   border-radius: 10px;
   overflow: hidden;
 }
+.header_logo {
+  margin-top: 10px;
+}
 
 .cart .image img {
   width: 100%;

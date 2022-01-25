@@ -4,17 +4,24 @@ import { Link } from 'react-router-dom'
 import { loadTrainers } from '../../redux/features/trainer'
 import logo1 from "../../assets/logog.png";
 import styles from '../Trainer/trainer.module.css'
+import { updateUserProfile } from '../../redux/features/profile';
 
 function Trainer() {
   const trainers = useSelector((state) => state.trainerReducer.trainers)
+  const profile = useSelector((state) => state.profileReducer.users)
+  const profileId = useSelector((state) => state.auth.id)
+  const token = useSelector((state) => state.auth.token)
   const dispatch = useDispatch()
+  console.log(profileId)
 
   useEffect(() => {
     dispatch(loadTrainers())
   }, [dispatch])
 
-  const handleClickTrainers = () => {
-    dispatch()
+  const handleClickTrainers = (id) => {
+    if(token) {
+      dispatch(updateUserProfile(id))
+    }
   }
 
   return (
@@ -36,7 +43,7 @@ function Trainer() {
         <div className={styles.container_block}>
           {trainers.map((trainer) => {
             return (
-              <div className={styles.cart}>
+              <div className={styles.cart} key={trainer._id}>
                 <div className={styles.block_cart}>
                   <div className={styles.image}>
                     <img
@@ -54,7 +61,7 @@ function Trainer() {
                   </div>
                   <div className={styles.button}>
                     <button
-                      onClick={handleClickTrainers}>Добавить тренера</button>
+                      onClick={() => handleClickTrainers(trainer._id)}>Добавить тренера</button>
                   </div>
                 </div>
               </div>
