@@ -19,7 +19,7 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-    users: action.payload
+        users: action.payload
       }
     case 'profile/load/rejected':
       return {
@@ -59,9 +59,9 @@ export const profileReducer = (state = initialState, action) => {
           if(item._id === action.payload._id) {
             item.name = action.payload.name
             item.aboutMe = action.payload.aboutMe
-              item.age = action.payload.age
-              item.purposeTrain = action.payload.purposeTrain
-              item.favoriteQuote = action.payload.favoriteQuote
+            item.age = action.payload.age
+            item.purposeTrain = action.payload.purposeTrain
+            item.favoriteQuote = action.payload.favoriteQuote
             return item
           }
           return state.users;
@@ -71,6 +71,12 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         subscription: action.payload,
+        loading: false
+      }
+    case 'profile/trainer/fulfilled':
+      return {
+        ...state,
+        trainer: action.payload,
         loading: false
       }
     default:
@@ -101,6 +107,19 @@ export const loadUserSubscription = (id) => {
       dispatch({type: 'profile/subscription/fulfilled', payload: subscription})
     }catch (e) {
       dispatch({type: 'profile/subscription/rejected', payload: e})
+    }
+  }
+};
+
+export const loadUserTrainer = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({type: 'profile/trainer/pending'});
+      const res = await fetch(`http://localhost:5000/carts/${id}`);
+      const trainer = await res.json();
+      dispatch({type: 'profile/trainer/fulfilled', payload: trainer})
+    }catch (e) {
+      dispatch({type: 'profile/trainer/rejected', payload: e})
     }
   }
 };
