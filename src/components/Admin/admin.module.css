@@ -19,6 +19,16 @@
   text-align: center;
 }
 
+.inputDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.inputs {
+  width: 20%;
+}
+
 .admin__abonements div {
  background-color: rgb(175, 197, 238);
  margin: 10px 20px;
