@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useParams } from 'react-router-dom';
 import { loadAdmin } from "../../redux/features/admin";
 import { loadTrainers } from "../../redux/features/trainer";
+import { loadSubscriptions } from '../../redux/features/subscription'
 import { deleteTrainers } from "../../redux/features/trainer";
 import AddTrainer from "./addTrainer";
 
@@ -12,6 +13,7 @@ const Admin = () => {
   // const admin = useSelector((state) => state.adminReducer.users);
   const adminId = useSelector((state) => state.auth.id);
   const trainers = useSelector((state) => state.trainerReducer.trainers);
+  const subscriptions = useSelector((state) => state.subscriptionsReducer.subscriptions)
   console.log(adminId);
 
   // const {id} = useParams();
@@ -23,6 +25,7 @@ const Admin = () => {
   useEffect(() => {
     dispatch(loadAdmin());
     dispatch(loadTrainers());
+    dispatch(loadSubscriptions())
   }, [dispatch]);
 
   return (
@@ -33,21 +36,31 @@ const Admin = () => {
             <h1>Админ</h1>
           </div>
         </div>
+
         <div className={styles.admin__row}>
           <div>
             <h1>Абонементы</h1>
           </div>
+          <div className={styles.admin__abonements}>
+            {subscriptions.map((item,index) => {
+              return (
+                <div key={index}>
+                  <p>имя: {item.name}</p>
+                  <img className={styles.admin__img} src={`http://localhost:5000/${item.img}`} alt="" />
+                  <p>{item.price}</p>
+                  <p>{item.time}</p>
+                  <p>{item.text}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
+
         <div className={styles.admin__row}>
           <div>
             <h1>Тренеры</h1>
           </div>
           <div className={styles.admin__postInputs}>
-            {/* <input type="text" /> <br />
-            <input type="text" /> <br />
-            <input type="text" /> <br />
-            <input type="text" /> <br />
-            <button>Отправить</button> */}
             <AddTrainer />
           </div>
           <div className={styles.admin__trainers}>
