@@ -7,6 +7,7 @@ import { loadTrainers } from "../../redux/features/trainer";
 import { loadSubscriptions } from '../../redux/features/subscription'
 import { deleteTrainers } from "../../redux/features/trainer";
 import AddTrainer from "./addTrainer";
+import AddAbonement from "./addAbonement";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -41,15 +42,18 @@ const Admin = () => {
           <div>
             <h1>Абонементы</h1>
           </div>
+          <div className={styles.admin__postInputs}>
+            <AddAbonement />
+          </div>
           <div className={styles.admin__abonements}>
             {subscriptions.map((item,index) => {
               return (
                 <div key={index}>
                   <p>имя: {item.name}</p>
                   <img className={styles.admin__img} src={`http://localhost:5000/${item.img}`} alt="" />
-                  <p>{item.price}</p>
-                  <p>{item.time}</p>
-                  <p>{item.text}</p>
+                  <p>цена: {item.price}</p>
+                  <p>продолжительность: {item.time}</p>
+                  <p>описание: {item.text}</p>
                 </div>
               )
             })}
@@ -67,14 +71,14 @@ const Admin = () => {
             {trainers.map((item, index) => {
               return (
                 <div key={index}>
-                  <p>имя: {item.name}</p>
-                  <p>Рейтинг: {item.rating}</p>
+                  <p>название: {item.name}</p>
+                  <p>рейтинг: {item.rating}</p>
                   <img
                     className={styles.admin__img}
                     src={`http://localhost:5000/${item.img}`}
                     alt=""
                   />
-                  <p>Описание: {item.description}</p>
+                  <p>описание: {item.description}</p>
                   <button onClick={() => handleDelete(item._id)}>
                     Удалить
                   </button>
