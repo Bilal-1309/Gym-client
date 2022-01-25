@@ -27,19 +27,24 @@ export const subscriptionsReducer = (state = initialState, action) => {
         ...state,
         loading: true
       }
-    case "subscriptions/post/filfilled":
+    /* case "subscriptions/post/filfilled":
       return {
         ...state,
         trainers: [...state.subscriptions, action.payload],
         loading: false
-      }
+      } */
     case "subscriptions/post/rejected":
       return {
         ...state,
         e: action.payload
       }
-      default:
-        return state
+      case "image/post/fulfilled": 
+      return {
+        ...state,
+        trainers: [...state.subscriptions, action.payload],
+      }
+    default:
+      return state
   }
 }
 
@@ -53,7 +58,7 @@ export const loadSubscriptions = () => {
 
       dispatch({ type: 'subscriptions/load/fullfilled', payload: data });
     } catch (e) {
-      dispatch({ type:'subscriptions/load/rejected', payload: e });
+      dispatch({ type: 'subscriptions/load/rejected', payload: e });
     }
   };
 };
@@ -66,18 +71,29 @@ export const addAbonements = (name, img, price, time, text) => {
         method: "POST",
         body: JSON.stringify({
           name: name,
-          img: img,
           price: price,
           time: time,
           text: text
         }),
-        headers: {"Content-type": "application/json"},
+        headers: { "Content-type": "application/json" },
       };
 
       const res = await fetch("http://localhost:5000/admin/subscriptions", options)
       const subscriptions = await res.json()
       console.log(subscriptions);
+
+
+      const formData = new FormData();
+      formData.append("img", img)
+      const resImage = await fetch(`http://localhost:5000/admin/subscriptions/image/${subscriptions._id}`, {
+        method: "PATCH",
+        body: formData,
+      })
+
+      const data = await resImage.json()
+
       dispatch({ type: "subscriptions/post/filfilled", payload: subscriptions })
+      dispatch({ type: "image/post/filfilled", payload: data })
     } catch (e) {
       dispatch({ type: "subscriptions/post/rejected", payload: e })
     }
