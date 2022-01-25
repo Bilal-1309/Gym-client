@@ -22,8 +22,6 @@ const Header = () => {
 
   const admin = users.find((item) => (item ? item.role === "admin" : null));
 
-  console.log(admin);
-
   const handleClickLogut = () => {
     dispatch(logOut());
   };
