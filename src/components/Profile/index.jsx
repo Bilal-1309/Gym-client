@@ -3,7 +3,12 @@ import styles from './profile.module.css'
 import styless from '../Subscriptions/subscription.module.css'
 import stylesss from '../Trainer/trainer.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUsers, loadUserSubscription, uploadAvatar } from '../../redux/features/profile';
+import {
+  loadUsers,
+  loadUserSubscription,
+  loadUserTrainer,
+  uploadAvatar
+} from '../../redux/features/profile';
 import { useParams } from 'react-router-dom';
 import { loadSubscriptions } from '../../redux/features/subscription';
 import { loadTrainers } from '../../redux/features/trainer';
@@ -21,6 +26,10 @@ const Profile = () => {
   useEffect(()=>{
     dispatch(loadUserSubscription(id))
   }, [dispatch])
+
+  useEffect(()=> {
+    dispatch(loadUserTrainer(id))
+  },[dispatch])
 
   useEffect(()=> {
     dispatch(loadSubscriptions())
@@ -43,7 +52,7 @@ const Profile = () => {
   const subsId = subscriptions.find((item)=> item._id === subscription.subscription)
 
   const trainers = useSelector(state => state.trainerReducer.trainers);
-console.log(trainers)
+
   const trainer = useSelector(state => state.profileReducer.subscription.trainer);
   console.log(trainer)
   const trainerId= trainers.find((item)=> item._id === trainer);
@@ -86,7 +95,7 @@ console.log(trainers)
 
   const inputIcon = '*';
 
-  if(!users.length || !subsId || !trainerId) {
+  if(!users.length ) {
     return "загрузка"
   }
   return (
@@ -99,10 +108,10 @@ console.log(trainers)
         <div className={styles.main__profile}>
           <div className={styles.main__profile_photo}>
             {userProfile.img ? (
-                <img src={`http://localhost:5000/${userProfile.img}`} alt="avatar"/>
-              ): (
+              <img src={`http://localhost:5000/${userProfile.img}`} alt="avatar"/>
+            ): (
               <img src="https://avatars.mds.yandex.net/get-pdb/1996600/d1725ec1-41d3-4b2c-ab24-91ec603557bf/s375" alt=""/>
-              )}
+            )}
             <div className={styles.input__wrapper}>
               <input
                 onChange={(e) => handleChangeImg(e)}
@@ -125,16 +134,16 @@ console.log(trainers)
           <div className={styles.main__profile_name}>
             Имя:
             <input type="text"
-               value={!userName ? userProfile.name : userName}
-               onChange={handleChangeName}
+                   value={!userName ? userProfile.name : userName}
+                   onChange={handleChangeName}
                    className={styles.editInput}
             />
           </div>
           <div className={styles.main__profile_date}>
             Возраст:
             <input type="text"
-              value={!userAge ? userProfile.age : userAge}
-              onChange={handleChangeAge}
+                   value={!userAge ? userProfile.age : userAge}
+                   onChange={handleChangeAge}
                    className={styles.editInput}
             />
           </div>
@@ -156,14 +165,14 @@ console.log(trainers)
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam at dolor dolores explicabo magnam molestiae nam provident quo repellendus? Nemo, quidem, sit. Eum excepturi tempora veniam. Consequatur consequuntur dolorem rem.
             </span>
             <input type="text"
-            value={!userAboutMe ? userProfile.aboutMe : userAboutMe}
-            onChange={handleChangeAboutMe}
+                   value={!userAboutMe ? userProfile.aboutMe : userAboutMe}
+                   onChange={handleChangeAboutMe}
             />
           </div>
           <div className={styles.main__info_purpose}><h2>Цель тренировок:</h2>
             <span> Держать себя в форме, #антижир</span>
             <input type="text"
-            value={!userPurpose ? userProfile.purposeTrain : userPurpose}
+                   value={!userPurpose ? userProfile.purposeTrain : userPurpose}
                    onChange={handleChangePurpose}
             />
           </div>
@@ -171,49 +180,52 @@ console.log(trainers)
             <h2>Любимая цитата:</h2>
             <span> Ave Caesar, imperator, morituri te salutant.</span>
             <input type="text"
-            value={!FavoriteQuote ? userProfile.favoriteQuote : FavoriteQuote}
-            onChange={handleChangeFavoriteQuote}
+                   value={!FavoriteQuote ? userProfile.favoriteQuote : FavoriteQuote}
+                   onChange={handleChangeFavoriteQuote}
             />
           </div>
         </div>
       </div>
-      <div className={styles.footer}>
-        <div className={styless.footer__subscription}>
-          <figure className={styless.cart} key={subsId._id}>
-            <h2 className={styless.cart__img__title}>{subsId.name}</h2>
-            <img src={`http://localhost:5000/${subsId.img}`} alt="" />
-            <figcaption>
-              <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
-              <p>Абонемент на: {subsId.time} дней</p>
-              <p>{subsId.text}</p>
-              <button>More Info</button>
-            </figcaption>
-          </figure>
-        </div>
-        <div className={styles.footer__trainer}>
-          <div className={stylesss.cart}>
-            <div className={stylesss.block_cart}>
-              <div className={stylesss.image}>
-                <img
-                  src={`http://localhost:5000/${trainerId.img}`}
-                  alt="" />
+      {!trainerId || !subsId ? null :
+        <div className={styles.footer}>
+          {subsId ?
+            <div className={styless.footer__subscription}>
+              <figure className={styless.cart} key={subsId._id}>
+                <h2 className={styless.cart__img__title}>{subsId.name}</h2>
+                <img src={`http://localhost:5000/${subsId.img}`} alt="" />
+                <figcaption>
+                  <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
+                  <p>Абонемент на: {subsId.time} дней</p>
+                  <p>{subsId.text}</p>
+                  <button>More Info</button>
+                </figcaption>
+              </figure>
+            </div> : null}
+          {trainerId ?
+            <div className={styles.footer__trainer}>
+              <div className={stylesss.cart}>
+                <div className={stylesss.block_cart}>
+                  <div className={stylesss.image}>
+                    <img
+                      src={`http://localhost:5000/${trainerId.img}`}
+                      alt="" />
+                  </div>
+                  <div className={stylesss.info}>
+                    <h3>Имя: {trainerId.name}</h3>
+                    <p>
+                      {trainerId.description}
+                    </p>
+                    <p className={stylesss.star}>
+                      ★ {trainerId.rating}
+                    </p>
+                  </div>
+                  <div className={stylesss.button}>
+                    <button>Добавить тренера</button>
+                  </div>
+                </div>
               </div>
-              <div className={stylesss.info}>
-                <h3>Имя: {trainerId.name}</h3>
-                <p>
-                  {trainerId.description}
-                </p>
-                <p className={stylesss.star}>
-                  ★ {trainerId.rating}
-                </p>
-              </div>
-              <div className={stylesss.button}>
-                <button>Добавить тренера</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </div> : null}
+        </div>}
     </div>
   );
 };

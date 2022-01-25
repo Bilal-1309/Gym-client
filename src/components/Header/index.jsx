@@ -54,6 +54,9 @@ const Header = () => {
                 <NavLink className={styles.header__links} to={"/shop"}>
                   Магазин
                 </NavLink>
+                <NavLink className={styles.header__links} to={"/trainers"}>
+                  Тренеры
+                </NavLink>
                 <Link
                   className={styles.header__links}
                   to="subscription"
