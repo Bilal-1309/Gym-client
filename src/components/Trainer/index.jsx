@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { loadTrainers } from '../../redux/features/trainer'
 import logo1 from "../../assets/logog.png";
 import styles from '../Trainer/trainer.module.css'
@@ -12,6 +12,7 @@ function Trainer() {
   const profileId = useSelector((state) => state.auth.id)
   const token = useSelector((state) => state.auth.token)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   console.log(profileId)
 
   useEffect(() => {
@@ -20,7 +21,9 @@ function Trainer() {
 
   const handleClickTrainers = (id) => {
     if(token) {
-      dispatch(updateUserProfile(id))
+      dispatch((id))
+    } else {
+      navigate('/signin')
     }
   }
 
@@ -32,9 +35,6 @@ function Trainer() {
             <div className={styles.header_logo}>
               <Link to='/'><img src={logo1} alt="" /></Link>
             </div>
-            <ul>
-              <li><Link to='/signin'>Вход</Link></li>
-            </ul>
           </div>
         </div>
         <div className={styles.headerTitle}>
@@ -61,7 +61,8 @@ function Trainer() {
                   </div>
                   <div className={styles.button}>
                     <button
-                      onClick={() => handleClickTrainers(trainer._id)}>Добавить тренера</button>
+                      onClick={() => handleClickTrainers(trainer._id)}>Добавить тренера
+                      </button>
                   </div>
                 </div>
               </div>
