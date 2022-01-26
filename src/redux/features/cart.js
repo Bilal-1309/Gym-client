@@ -1,6 +1,7 @@
 const initialState = {
   cartItems: {},
   loading: false,
+  error: null
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -41,7 +42,6 @@ export const cartReducer = (state = initialState, action) => {
           ...state,
           cartItems: action.payload,
         };
-
     default:
       return state;
   }
