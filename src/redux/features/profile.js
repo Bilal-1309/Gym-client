@@ -214,6 +214,7 @@ export const updateUserProfile = (
     .then((res)=> res.json())
     .then.data((data)=> {
       dispatch({type: "profile/update/info/fulfilled", payload: data})
+      console.log(data)
     });
   };
 };

@@ -9,9 +9,10 @@ import {
   loadUserTrainer,
   uploadAvatar
 } from '../../redux/features/profile';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { loadSubscriptions } from '../../redux/features/subscription';
 import { loadTrainers } from '../../redux/features/trainer';
+import Timer from './Timer';
 
 const Profile = () => {
 
@@ -54,9 +55,6 @@ const Profile = () => {
   const trainer = useSelector(state => state.profileReducer.subscription.trainer);
 
   const trainerId= trainers.find((item)=> item._id === trainer);
-
-  console.log(trainerId)
-  console.log(subsId)
 
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState('');
@@ -101,6 +99,7 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.header}>
+        <NavLink to={'/'}>На главную</NavLink>
         <div className={styles.header__name}>{userProfile.name}</div>
         <div className={styles.header__citata}>Цель быть лучше себя вчерашнего! </div>
       </div>
@@ -189,7 +188,6 @@ const Profile = () => {
       {trainerId || subsId ?
         <div className={styles.footer}>
           {subsId ?
-            <div className={styless.footer__subscription}>
               <figure className={styless.cart} key={subsId._id}>
                 <h2 className={styless.cart__img__title}>{subsId.name}</h2>
                 <img src={`http://localhost:5000/${subsId.img}`} alt="" />
@@ -197,11 +195,11 @@ const Profile = () => {
                   <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
                   <p>Абонемент на: {subsId.time} дней</p>
                   <p>{subsId.text}</p>
+                  <Timer
+                  timestampMs={16436736000843249320200}/>
                 </figcaption>
-              </figure>
-            </div> : null}
+              </figure>: null}
           {trainerId ?
-            <div className={styles.footer__trainer}>
               <div className={stylesss.cart}>
                 <div className={stylesss.block_cart}>
                   <div className={stylesss.image}>
@@ -219,7 +217,6 @@ const Profile = () => {
                     </p>
                   </div>
                 </div>
-              </div>
             </div> : null}
         </div> : null }
     </div>
