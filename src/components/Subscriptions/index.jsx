@@ -4,6 +4,7 @@ import { loadSubscriptions } from "../../redux/features/subscription";
 import styles from "./subscription.module.css";
 import { loadUserSubscription, subscriptionAddInCart } from '../../redux/features/profile';
 import { loadCartItems } from '../../redux/features/cart';
+import { useNavigate } from 'react-router-dom';
 
 const Subscriptions = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,8 @@ const Subscriptions = () => {
   const cartItems = useSelector((state) => state.cartReducer.cartItems._id);
   const load = useSelector(state => state.cartReducer.loading)
   const profileId = useSelector(state => state.auth.id)
-  console.log(cartItems)
+  const token = useSelector((state) => state.auth.token)
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadSubscriptions());
@@ -43,7 +45,7 @@ const Subscriptions = () => {
                   <h3 className={styles.cart__price}>{subscription.price} ₽</h3>
                   <p>Абонемент на: {subscription.time} дней</p>
                   <p>{subscription.text}</p>
-                  <button onClick={()=> handleAddSubscription( subscription._id)}>Купить</button>
+                  <button onClick={()=> token ? handleAddSubscription( subscription._id): navigate('/signin')}>Купить</button>
                 </figcaption>
               </figure>
             );
