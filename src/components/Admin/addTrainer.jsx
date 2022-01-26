@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addTrainers } from "../../redux/features/trainer";
+import styles from "./admin.module.css"
 
 const AddTrainer = () => {
 
@@ -32,13 +33,17 @@ const AddTrainer = () => {
     setInfo("");
   };
 
+  
+
   return (
-    <div>
-      <input placeholder="Имя Фамилия" onChange={handleName} value={name} type="text" /> <br />
-      <input placeholder="Рейтинг" onChange={handleRaiting} value={rating} type="text" /> <br />
-      <input placeholder="Фото" onChange={(e) => handlePhoto(e)} type="file" /> <br />
-      <input placeholder="Описание" onChange={handleInfo} value={info} type="text" /> <br />
-      <button onClick={handleClick}>Отправить</button>
+    <div className={styles.inputDiv}>
+      <div className={styles.inputs}>
+        <input placeholder="Имя Фамилия" onChange={handleName} value={name} type="text" /> <br />
+        <input placeholder="Рейтинг" onChange={handleRaiting} value={rating} type="text" /> <br />
+        <input placeholder="Фото" onChange={(e) => handlePhoto(e)} type="file" /> <br />
+        <input placeholder="Описание" onChange={handleInfo} value={info} type="text" /> <br />
+        <button onClick={handleClick}>Отправить</button>
+      </div>
     </div>
   );
 };
