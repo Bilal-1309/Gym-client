@@ -47,7 +47,7 @@ const Shop = () => {
               return (
                 <div className={styles.product__cart} key={product._id}>
                   <div className={styles.product__cart__img}>
-                    <img src={product.img} alt="product" />
+                    <img src={`http://localhost:5000/${product.img}`} alt="product" />
                   </div>
                   <div className={styles.product__cart__text}>
                     <h5>{product.name}</h5>

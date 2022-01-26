@@ -8,7 +8,8 @@ import { deleteTrainers } from "../../redux/features/trainer";
 import { deleteSubscriptions } from "../../redux/features/subscription"
 import AddTrainer from "./addTrainer";
 import AddAbonement from "./addAbonement";
-import { loadProducts } from "../../redux/features/shop";
+import { deleteProduct, loadProducts } from "../../redux/features/shop";
+import Products from "./Products";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -25,12 +26,25 @@ const Admin = () => {
     dispatch(deleteSubscriptions(id))
   }
 
+  const handleDeleteProduct = (id) => {
+    dispatch(deleteProduct(id))
+  }
+
   useEffect(() => {
     dispatch(loadAdmin());
-    dispatch(loadTrainers());
-    dispatch(loadSubscriptions())
-    dispatch(loadProducts())
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadSubscriptions())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(loadTrainers());
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(loadProducts())
+  }, [dispatch])
 
   return (
     <div className={styles.admin__container}>
@@ -97,7 +111,7 @@ const Admin = () => {
             <h1>Спортивное питание</h1>
           </div>
           <div className={styles.admin__postInputs}>
-            
+            <Products />
           </div>
           <div className={styles.admin__abonements}>
             {products.map((item, index) => {
@@ -108,7 +122,7 @@ const Admin = () => {
                   <p>Упаковка: {item.weight}</p>
                   <p>цена: {item.price}</p>
                   <p>описание: {item.description}</p>
-                  <button onClick={() => handleDeleteSub(item._id)}>Удалить</button>
+                  <button onClick={() => handleDeleteProduct(item._id)}>Удалить</button>
                 </div>
               )
             })}

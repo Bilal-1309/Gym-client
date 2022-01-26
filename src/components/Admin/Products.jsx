@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { addAbonements } from "../../redux/features/subscription"
 import styles from './admin.module.css'
+import { addProduct } from "../../redux/features/shop";
+import { loadAdmin } from "../../redux/features/admin";
+
 
 const Products = () => {
 
@@ -10,7 +12,7 @@ const Products = () => {
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [price, setPrice] = useState("");
-  const [time, setTime] = useState("");
+  const [weight, setWeight] = useState("");
   const [text, setText] = useState("");
 
   const handleName = (e) => {
@@ -22,18 +24,18 @@ const Products = () => {
   const handlePrice = (e) => {
     setPrice(e.target.value)
   }
-  const handleTime = (e) => {
-    setTime(e.target.value)
+  const handleWeight = (e) => {
+    setWeight(e.target.value)
   }
   const handleText = (e) => {
     setText(e.target.value)
   }
   const handleClick = () => {
-    dispatch(addAbonements(name, img, price, time, text))
+    dispatch(addProduct(name, img, price, weight, text))
     setName("");
     setImg("")
     setPrice("");
-    setTime("");
+    setWeight("");
     setText("");
   }
 
@@ -44,7 +46,7 @@ const Products = () => {
         <input onChange={handleName} type="text" value={name} placeholder="Название" />
         <input onChange={(e) => handleImg(e)} type="file" placeholder="Фото" />
         <input onChange={handlePrice} type="text" value={price} placeholder="Цена" />
-        <input onChange={handleTime} type="text" value={time} placeholder="Продолжительность" />
+        <input onChange={handleWeight} type="text" value={weight} placeholder="Вес упаковки" />
         <input onChange={handleText} type="text" value={text} placeholder="Описание" />
         <button onClick={handleClick}>Отправить</button>
       </div>
