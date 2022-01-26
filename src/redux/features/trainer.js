@@ -113,7 +113,8 @@ export const addTrainers = (name, raiting, photo, info) => {
 
       const resTrainer = await fetch("http://localhost:5000/admin/trainers", options)
       const trainer = await resTrainer.json()
-      console.log(trainer._id)
+
+      
       const formData = new FormData();
       formData.append("img", photo);
       const resImage = await fetch(`http://localhost:5000/admin/trainers/image/${trainer._id}`, {

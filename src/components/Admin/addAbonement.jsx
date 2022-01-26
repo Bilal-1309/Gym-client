@@ -30,8 +30,13 @@ const AddAbonement = () => {
   }
   const handleClick = () => {
     dispatch(addAbonements(name, img, price, time, text))
+    setName("");
+    setImg("")
+    setPrice("");
+    setTime("");
+    setText("");
   }
-  console.log(img);
+
 
   return (
     <div className={styles.inputDiv}>
