@@ -30,15 +30,17 @@ img {
   width: 70%;
   display: flex;
   justify-content: space-between;
+  padding: 0 10px;
 }
 
 .header__info {
   margin: 120px 50px 0;
-  width: 500px;
+  width: 700px;
 }
 
 .header__info h1 {
-  font-size: 46px;
+  font-size: 66px;
+  color: rgb(24, 24, 24);
 }
 
 .header__info button {
@@ -71,7 +73,7 @@ img {
   box-shadow: 0 0 120px rgba(0,0,0,0.2);
   border-radius: 6px;
 }
-
+/* 
 .header__moreinfo__text button {
   width: 140px;
   height: 50px;
@@ -80,10 +82,81 @@ img {
   border: none;
   font-weight: bold;
   color: aliceblue;
+} */
+
+.button_29 {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
 }
 
+.button_29:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button_29:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button_29:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+
+
 .header__links {
-  color: black;
+  color: rgb(12, 12, 12);
+  text-transform: uppercase;
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
   cursor: pointer;
-  margin: 16px 0;
+}
+
+.header__links:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1.5px;
+  left: 50%;
+  position: absolute;
+  background: rgb(12, 12, 12);
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.header__links:hover:after { 
+  width: 100%; 
+  left: 0; 
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
-import bg from "../../assets/bg1.png";
+import bg from "../../assets/bg3.png";
 import logo1 from "../../assets/logog.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/features/auth";
@@ -75,7 +75,6 @@ const Header = () => {
                 </Link>
                 <Link
                   className={styles.header__links}
-                  style={{ color: "white" }}
                   to="address"
                   smooth={true}
                   duration={1000}
@@ -86,7 +85,6 @@ const Header = () => {
                   <NavLink
                     className={styles.header__links}
                     to={"/signin"}
-                    style={{ color: "white" }}
                   >
                     Вход
                   </NavLink>
@@ -111,7 +109,13 @@ const Header = () => {
                 nunc congue aliquam lectus non pellentesque. Convallis facilisi
                 iaculis id nunc, cursus.
               </p>
-              <button>Купить</button>
+              <Link
+                  to="subscription"
+                  smooth={true}
+                  duration={1000}
+                >
+                  <button className={styles.button_29} >Купить</button>
+                </Link>
             </div>
             <div className={styles.header__moreinfo}>
               <div className={styles.header__moreinfo__text}>
@@ -119,7 +123,13 @@ const Header = () => {
                 <p>|</p>
                 <p>Раздел об информации о нашем фитнес зале </p>
                 <p>|</p>
-                <button>Перейти</button>
+                <Link
+                  to="gallery"
+                  smooth={true}
+                  duration={1000}
+                >
+                <button className={styles.button_29}>Перейти</button>
+                </Link>
               </div>
             </div>
           </div>
