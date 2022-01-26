@@ -74,7 +74,7 @@ export const addCartItem = (product, id) => {
     try {
       const res = await fetch(`http://localhost:5000/carts/add/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({ product: product }),
+        body: JSON.stringify({ product: product, amount: 1 }),
         headers: {
           "Content-type": "application/json",
         },

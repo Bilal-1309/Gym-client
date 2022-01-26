@@ -11,53 +11,56 @@ export const trainerReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case 'trainers/load/fullfilled':
       return {
         ...state,
         trainers: action.payload,
         loading: false,
       };
+
     case 'trainers/load/rejected':
       return {
         ...state,
         error: action.payload
       }
+
     case 'trainers/delete/pending':
       return {
         ...state,
         loading: true
       }
+      
     case 'trainers/delete/fullfilled':
       return {
         ...state,
-        trainers: state.trainers.filter((item) => {
-          if (item._id !== action.payload) {
-            return item
-          }
-          return state
-        })
+        trainers: state.trainers.filter((item) => item._id !== action.payload),
       }
+
     case 'trainers/delete/rejected':
       return {
         ...state,
         error: action.payload
       }
+
     case 'trainers/post/pending':
       return {
         ...state,
         loading: true
       }
+
     case 'trainers/post/rejected':
       return {
         ...state,
         error: action.payload
       }
 
-    case "image/post/fulfilled": 
+    case "imageTrainer/post/fulfilled": 
     return {
       ...state,
       trainers: [...state.trainers, action.payload],
     }
+
     default:
       return state
   }
@@ -125,7 +128,7 @@ export const addTrainers = (name, raiting, photo, info) => {
 
 
       dispatch({ type: "trainers/post/fulfilled", payload: trainer })
-      dispatch({ type: "image/post/fulfilled", payload: data })
+      dispatch({ type: "imageTrainer/post/fulfilled", payload: data })
     } catch (error) {
       dispatch({ type: "trainers/post/rejected", payload: error })
     }
