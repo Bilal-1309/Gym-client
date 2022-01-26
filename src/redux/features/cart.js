@@ -1,8 +1,7 @@
-import { trainerReducer } from './trainer';
-
 const initialState = {
   cartItems: {},
   loading: false,
+  error: null
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -43,36 +42,6 @@ export const cartReducer = (state = initialState, action) => {
           ...state,
           cartItems: action.payload,
         };
-      case "cart/add/trainer/pending":
-        return {
-          ...state,
-          loading: true
-        }
-      case "cart/add/trainer/fulfilled":
-        return {
-          ...state,
-          cartItems: action.payload
-        }
-    case "cart/add/trainer/rejected":
-      return {
-        ...state,
-        error: action.payload
-      }
-    case "cart/add/subscription/pending":
-      return {
-        ...state,
-        loading: true
-      }
-    case "cart/add/subscription/fulfilled":
-      return {
-        ...state,
-        cartItems: action.payload
-      }
-    case "cart/add/subscription/rejected":
-      return {
-        ...state,
-        error: action.payload
-      }
     default:
       return state;
   }
@@ -119,44 +88,6 @@ export const addCartItem = (product, id) => {
     }
   };
 };
-
-export const trainerAddInCart = (cartId, trainerId) => {
-  return async (dispatch) => {
-    dispatch({type: "cart/add/trainer/pending"})
-    try {
-      const res = await fetch(`http://localhost:5000/carts/add/${cartId}`,{
-        method: "PATCH",
-        body: JSON.stringify({trainer: trainerId}),
-        headers: {
-          "Content-type": "application/json",
-        }
-      });
-      const data = await res.json();
-      dispatch({type: "cart/add/trainer/fulfilled", payload: data})
-    }catch (e) {
-      dispatch({type: "cart/add/trainer/rejected", payload: e})
-    }
-  }
-}
-
-export const subscriptionAddInCart = (cartId, subscriptionId) => {
-  return async (dispatch) => {
-    dispatch({type: "cart/add/subscription/pending"})
-    try {
-      const res = await fetch(`http://localhost:5000/carts/add/${cartId}`,{
-        method: "PATCH",
-        body: JSON.stringify({subscription: subscriptionId}),
-        headers: {
-          "Content-type": "application/json"
-        }
-      });
-      const data = await res.json();
-      dispatch({type: "cart/add/subscription/fulfilled", payload: data})
-    }catch (e) {
-      dispatch({type: "cart/add/subscription/rejected", payload: e})
-    }
-  }
-}
 
 export const loadCartItems = (id) => {
   return async (dispatch) => {

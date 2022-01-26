@@ -12,8 +12,6 @@ import {
 import { useParams } from 'react-router-dom';
 import { loadSubscriptions } from '../../redux/features/subscription';
 import { loadTrainers } from '../../redux/features/trainer';
-import { loadCartItems } from '../../redux/features/cart';
-import Subscriptions from '../Subscriptions';
 
 const Profile = () => {
 
@@ -54,9 +52,11 @@ const Profile = () => {
   const trainers = useSelector(state => state.trainerReducer.trainers);
 
   const trainer = useSelector(state => state.profileReducer.subscription.trainer);
-  console.log(trainer)
+
   const trainerId= trainers.find((item)=> item._id === trainer);
+
   console.log(trainerId)
+  console.log(subsId)
 
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState('');
@@ -186,7 +186,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      {!trainerId || !subsId ? null :
+      {trainerId || subsId ?
         <div className={styles.footer}>
           {subsId ?
             <div className={styless.footer__subscription}>
@@ -197,7 +197,6 @@ const Profile = () => {
                   <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
                   <p>Абонемент на: {subsId.time} дней</p>
                   <p>{subsId.text}</p>
-                  <button>More Info</button>
                 </figcaption>
               </figure>
             </div> : null}
@@ -219,13 +218,10 @@ const Profile = () => {
                       ★ {trainerId.rating}
                     </p>
                   </div>
-                  <div className={stylesss.button}>
-                    <button>Добавить тренера</button>
-                  </div>
                 </div>
               </div>
             </div> : null}
-        </div>}
+        </div> : null }
     </div>
   );
 };
