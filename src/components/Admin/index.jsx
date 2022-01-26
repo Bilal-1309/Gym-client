@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./admin.module.css";
 import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from 'react-router-dom';
 import { loadAdmin } from "../../redux/features/admin";
 import { loadTrainers } from "../../redux/features/trainer";
 import { loadSubscriptions } from '../../redux/features/subscription'
@@ -9,16 +8,14 @@ import { deleteTrainers } from "../../redux/features/trainer";
 import { deleteSubscriptions } from "../../redux/features/subscription"
 import AddTrainer from "./addTrainer";
 import AddAbonement from "./addAbonement";
+import { loadProducts } from "../../redux/features/shop";
 
 const Admin = () => {
   const dispatch = useDispatch();
-  // const admin = useSelector((state) => state.adminReducer.users);
-  const adminId = useSelector((state) => state.auth.id);
+
   const trainers = useSelector((state) => state.trainerReducer.trainers);
   const subscriptions = useSelector((state) => state.subscriptionsReducer.subscriptions)
-  console.log(adminId);
-
-  // const {id} = useParams();
+  const products = useSelector(state => state.productsReducer.products)
 
   const handleDelete = (id) => {
     dispatch(deleteTrainers(id));
@@ -26,13 +23,13 @@ const Admin = () => {
 
   const handleDeleteSub = (id) => {
     dispatch(deleteSubscriptions(id))
-    
   }
 
   useEffect(() => {
     dispatch(loadAdmin());
     dispatch(loadTrainers());
     dispatch(loadSubscriptions())
+    dispatch(loadProducts())
   }, [dispatch]);
 
   return (
@@ -94,6 +91,30 @@ const Admin = () => {
             })}
           </div>
         </div>
+
+        <div className={styles.admin__row}>
+          <div>
+            <h1>Спортивное питание</h1>
+          </div>
+          <div className={styles.admin__postInputs}>
+            
+          </div>
+          <div className={styles.admin__abonements}>
+            {products.map((item, index) => {
+              return (
+                <div key={index}>
+                  <p>имя: {item.name}</p>
+                  <img className={styles.admin__img} src={`http://localhost:5000/${item.img}`} alt="" />
+                  <p>Упаковка: {item.weight}</p>
+                  <p>цена: {item.price}</p>
+                  <p>описание: {item.description}</p>
+                  <button onClick={() => handleDeleteSub(item._id)}>Удалить</button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        
         <div className={styles.admin__row}>
           <div>
             <h1>Покупатели</h1>
