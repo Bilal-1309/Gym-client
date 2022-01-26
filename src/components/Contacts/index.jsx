@@ -12,8 +12,8 @@ const Contacts = () => {
           г. Грозный, ул. С. Ш. Лорсанова 9, 2 этаж
         </p>
       </div>
-
       <div className={styles.contacts__map}>
+        <div className={styles.onMapDiv}></div>
         <YMaps>
           
             <Map
