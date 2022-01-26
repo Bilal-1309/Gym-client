@@ -25,13 +25,13 @@ const Timer = ({timestampMs}) => {
   return (
     <div>
       <span>{time.days}</span>
-      <span>days</span>
+      <span> d: </span>
       <span>{time.hours}</span>
-      <span>hours</span>
+      <span> h: </span>
       <span>{time.minutes}</span>
-      <span>minutes</span>
+      <span> m: </span>
       <span>{time.seconds}</span>
-      <span>seconds</span>
+      <span> s </span>
     </div>
   );
 };

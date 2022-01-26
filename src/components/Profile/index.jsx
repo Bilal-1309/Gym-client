@@ -196,7 +196,7 @@ const Profile = () => {
                   <p>Абонемент на: {subsId.time} дней</p>
                   <p>{subsId.text}</p>
                   <Timer
-                  timestampMs={16436736000843249320200}/>
+                  timestampMs={1645798050000}/>
                 </figcaption>
               </figure>: null}
           {trainerId ?
