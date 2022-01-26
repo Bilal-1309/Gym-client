@@ -41,7 +41,27 @@ export const subscriptionsReducer = (state = initialState, action) => {
       case "image/post/fulfilled": 
       return {
         ...state,
-        trainers: [...state.subscriptions, action.payload],
+        subscriptions: [...state.subscriptions, action.payload],
+      }
+    case "subscriptions/delete/pending":
+      return {
+        ...state,
+        loading: true
+      }
+    case "subscriptions/delete/fulfilled":
+      return {
+        ...state,
+        subscriptions: state.subscriptions.filter((item) => {
+          if (item._id === action.payload) {
+            return item
+          }
+          return state
+        })
+      }
+    case "subscriptions/delete/rejected":
+      return {
+        ...state,
+        error: action.payload
       }
     default:
       return state
@@ -80,7 +100,6 @@ export const addAbonements = (name, img, price, time, text) => {
 
       const res = await fetch("http://localhost:5000/admin/subscriptions", options)
       const subscriptions = await res.json()
-      console.log(subscriptions);
 
 
       const formData = new FormData();
@@ -96,6 +115,19 @@ export const addAbonements = (name, img, price, time, text) => {
       dispatch({ type: "image/post/filfilled", payload: data })
     } catch (e) {
       dispatch({ type: "subscriptions/post/rejected", payload: e })
+    }
+  }
+}
+
+export const deleteSubscriptions = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "subscriptions/delete/pending" })
+
+    try {
+      await fetch(`http://localhost:5000/admin/subscriptions/${id}`, {method: "DELETE"})
+      dispatch({type: 'subscriptions/delete/fulfilled', payload: id})
+    } catch (e) {
+      dispatch({ type: "subscriptions/delete/rejected", payload: e })
     }
   }
 }

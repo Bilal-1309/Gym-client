@@ -6,6 +6,7 @@ import { loadAdmin } from "../../redux/features/admin";
 import { loadTrainers } from "../../redux/features/trainer";
 import { loadSubscriptions } from '../../redux/features/subscription'
 import { deleteTrainers } from "../../redux/features/trainer";
+import { deleteSubscriptions } from "../../redux/features/subscription"
 import AddTrainer from "./addTrainer";
 import AddAbonement from "./addAbonement";
 
@@ -22,6 +23,11 @@ const Admin = () => {
   const handleDelete = (id) => {
     dispatch(deleteTrainers(id));
   };
+
+  const handleDeleteSub = (id) => {
+    dispatch(deleteSubscriptions(id))
+    
+  }
 
   useEffect(() => {
     dispatch(loadAdmin());
@@ -54,6 +60,7 @@ const Admin = () => {
                   <p>цена: {item.price}</p>
                   <p>продолжительность: {item.time}</p>
                   <p>описание: {item.text}</p>
+                  <button onClick={() => handleDeleteSub(item._id)}>Удалить</button>
                 </div>
               )
             })}
