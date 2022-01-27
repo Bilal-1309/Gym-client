@@ -3,37 +3,30 @@
   margin:0;
 
 }
-.header{
-  background: url("http://king-of-fitness.com/images/plg_jdvthumbs/thumb-trenagerka-07e082b6b169cbe6af789fb25aa68ee9.jpg");
-  background-size: cover;
-  height: 500px;
-  color: white;
+.profile__container{
+  width: 90%;
+  max-height: 100%;
+  margin: 0 auto;
+  background: linear-gradient(110.15deg, #4a4b50 1.86%, #0d0d0f 98.63%);
+  border-radius: 70px;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 30px;
+}
+
+.header {
+  text-align: center;
 }
 .header__name{
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  position: relative;
-  top:40%;
-  font-family: Arial;
   font-size: 50px;
-  font-weight: 600;
+  font-weight: 700;
+  color: aliceblue;
 }
-.header__citata{
-  max-width: 1000px;
-  margin:80px auto;
-  text-align: center;
-  position: relative;
-  top:50%;
-  font-family: Arial;
-  font-size: 24px;
-  font-weight: 600;
-}
+
 .main{
   margin-top: 50px;
-  padding: 20px 40px;
   max-width: 100%;
-  color: black;
   display: flex;
   justify-content: space-between;
 }
@@ -58,19 +51,6 @@
   margin-right: auto;
   max-width: 100%;
   border-radius: 100%;
-}
-.main__profile_name{
-  padding: 10px;
-  margin-top: 20px;
-}
-.main__profile_date{
-  padding: 10px;
-}
-.main__profile_nation{
-  padding: 10px;
-}
-.main__profile_socseti{
-  padding: 10px;
 }
 .main__info{
   border-radius: 10px;
@@ -99,6 +79,7 @@
 }
 .main__info_purpose h2{
   margin-bottom: 16px;
+  color: aliceblue;
 }
 .main__info_purpose span{
   margin-left:20px
@@ -126,4 +107,34 @@
   font-size: 20px;
   padding-left: 5px;
   font-family: 'Creepster', serif;
+}
+
+.profile__info__row {
+  margin: 0 auto;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: crimson;
+  background: url(https://gymjunkiez.com/wp-content/uploads/2019/07/background-gym-6.jpg);
+  background-size: cover;
+  border-radius: 30px;
+}
+
+.profile__info__user {
+  min-width: 300px;
+  background-color: #4E4F52;
+  border-radius: 30px;
+}
+
+.profile__userInfo__div {
+  background-color: #5F5F63;
+  margin-left: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.profile__userData {
+  padding-top: 10px;
+  color: aliceblue;
 }
