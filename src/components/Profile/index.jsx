@@ -13,6 +13,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { loadSubscriptions } from '../../redux/features/subscription';
 import { loadTrainers } from '../../redux/features/trainer';
 import Timer from './Timer';
+import { loadAllCarts, loadCartItems } from '../../redux/features/cart';
 
 const Profile = () => {
 
@@ -38,6 +39,10 @@ const Profile = () => {
     dispatch(loadTrainers())
   },[dispatch])
 
+  useEffect(()=>{
+    dispatch(loadAllCarts())
+  },[dispatch]);
+
   const users = useSelector(state => state.profileReducer.users)
 
   const {id} = useParams();
@@ -45,50 +50,17 @@ const Profile = () => {
   const userProfile = users.find((user)=> user._id === id);
 
   const subscriptions = useSelector(state => state.subscriptionsReducer.subscriptions);
-
   const subscription = useSelector(state => state.profileReducer.subscription);
-
   const subsId = subscriptions.find((item)=> item._id === subscription.subscription)
 
   const trainers = useSelector(state => state.trainerReducer.trainers);
 
   const trainer = useSelector(state => state.profileReducer.subscription.trainer);
 
-  const trainerId= trainers.find((item)=> item._id === trainer);
-
-  const [userName, setUserName] = useState('');
-  const [userAge, setUserAge] = useState('');
-  const [userWeight, setUserWeight] = useState('');
-  const [userAboutMe, setUserAboutMe] = useState('');
-  const [userPurpose, setUserPurpose] = useState('');
-  const [FavoriteQuote, setFavoriteQuote] = useState('');
+  const trainerId = trainers.find((item)=> item._id === trainer);
 
   const handleChangeImg = (e) => {
     dispatch(uploadAvatar(e.target.files[0], id))
-  }
-
-  const handleChangeName = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const handleChangeAge = (e) => {
-    setUserAge(e.target.value)
-  }
-
-  const handleChangeWeight = (e) => {
-    setUserWeight(e.target.value)
-  }
-
-  const handleChangeAboutMe = (e) => {
-    setUserAboutMe(e.target.value)
-  }
-
-  const handleChangePurpose = (e) => {
-    setUserPurpose(e.target.value)
-  }
-
-  const handleChangeFavoriteQuote = (e) => {
-    setFavoriteQuote(e.target.value)
   }
 
   const inputIcon = '*';
@@ -131,57 +103,21 @@ const Profile = () => {
             </div>
           </div>
           <div className={styles.main__profile_name}>
-            Имя:
-            <input type="text"
-                   value={!userName ? userProfile.name : userName}
-                   onChange={handleChangeName}
-                   className={styles.editInput}
-            />
+            Имя: {userProfile.name}
           </div>
           <div className={styles.main__profile_date}>
-            Возраст:
-            <input type="text"
-                   value={!userAge ? userProfile.age : userAge}
-                   onChange={handleChangeAge}
-                   className={styles.editInput}
-            />
+            Возраст: {userProfile.age}
           </div>
           <div className={styles.main__profile_nation}>
-            Вес:
-            <input type="text"
-                   value={!userWeight ? userProfile.weight : userWeight}
-                   onChange={handleChangeWeight}
-            />
+            Вес: {userProfile.weight}
           </div>
           <div className={styles.main__profile_socseti}>
             Соц.сети: {userProfile.email}
           </div>
         </div>
         <div className={styles.main__info}>
-          <div className={styles.main__info_about}>
-            <h2>About Me</h2>
-            <span>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam at dolor dolores explicabo magnam molestiae nam provident quo repellendus? Nemo, quidem, sit. Eum excepturi tempora veniam. Consequatur consequuntur dolorem rem.
-            </span>
-            <input type="text"
-                   value={!userAboutMe ? userProfile.aboutMe : userAboutMe}
-                   onChange={handleChangeAboutMe}
-            />
-          </div>
           <div className={styles.main__info_purpose}><h2>Цель тренировок:</h2>
-            <span> Держать себя в форме, #антижир</span>
-            <input type="text"
-                   value={!userPurpose ? userProfile.purposeTrain : userPurpose}
-                   onChange={handleChangePurpose}
-            />
-          </div>
-          <div className={styles.main__info_citata}>
-            <h2>Любимая цитата:</h2>
-            <span> Ave Caesar, imperator, morituri te salutant.</span>
-            <input type="text"
-                   value={!FavoriteQuote ? userProfile.favoriteQuote : FavoriteQuote}
-                   onChange={handleChangeFavoriteQuote}
-            />
+            <span> {userProfile.purposeTrain}</span>
           </div>
         </div>
       </div>
@@ -196,7 +132,7 @@ const Profile = () => {
                   <p>Абонемент на: {subsId.time / 3600 / 24} дней</p>
                   <p>{subsId.text}</p>
                   <Timer
-                  timestampMs={subsId.deadTime}/>
+                  timestampMs={subscription.subscriptionDeadTime}/>
                 </figcaption>
               </figure>: null}
           {trainerId ?

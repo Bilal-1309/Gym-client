@@ -86,7 +86,6 @@ export const trainerAddInCart = (trainer, id) => {
   return async (dispatch) => {
     dispatch({type: "profile/trainer/pending"})
     try {
-      console.log(trainer, id)
       const res = await fetch(`http://localhost:5000/carts/add/${id}`,{
         method: "PATCH",
         body: JSON.stringify({trainer: trainer}),
@@ -95,7 +94,6 @@ export const trainerAddInCart = (trainer, id) => {
         }
       });
       const data = await res.json();
-      console.log(data)
       dispatch({type: "profile/trainer/fulfilled", payload: data})
     }catch (e) {
       dispatch({type: "profile/trainer/rejected", payload: e})
@@ -107,8 +105,7 @@ export const subscriptionAddInCart = (subscription, id) => {
   return async (dispatch) => {
     dispatch({type: "profile/subscription/pending"})
     try {
-      console.log(subscription, id)
-      const res = await fetch(`http://localhost:5000/carts/add/${id}`,{
+      const res = await fetch(`http://localhost:5000/carts/add/subscription/in/${id}`,{
         method: "PATCH",
         body: JSON.stringify({subscription: subscription}),
         headers: {
