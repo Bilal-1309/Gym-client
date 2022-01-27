@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
-import bg from "../../assets/bg3.png";
 import logo1 from "../../assets/logog.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/features/auth";
@@ -30,7 +29,6 @@ const Header = () => {
     <>
       {admin ? (
         <div className={styles.header__bgImage}>
-          <img src={bg} alt="" />
           <div className={styles.header__container}>
             <div className={styles.header__navbar}>
               <div>
@@ -65,22 +63,6 @@ const Header = () => {
                 >
                   Купить абонимент
                 </Link>
-                <Link
-                  className={styles.header__links}
-                  to="gallery"
-                  smooth={true}
-                  duration={1000}
-                >
-                  Галерея
-                </Link>
-                <Link
-                  className={styles.header__links}
-                  to="address"
-                  smooth={true}
-                  duration={1000}
-                >
-                  Адрес
-                </Link>
                 {!token ? (
                   <NavLink
                     className={styles.header__links}
@@ -98,38 +80,6 @@ const Header = () => {
                     Выход
                   </NavLink>
                 )}
-              </div>
-            </div>
-            <div className={styles.header__info}>
-              <h1>
-                Take the lesson from <br /> only $10.99 a month.
-              </h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictum
-                nunc congue aliquam lectus non pellentesque. Convallis facilisi
-                iaculis id nunc, cursus.
-              </p>
-              <Link
-                  to="subscription"
-                  smooth={true}
-                  duration={1000}
-                >
-                  <button className={styles.button_29} >Купить</button>
-                </Link>
-            </div>
-            <div className={styles.header__moreinfo}>
-              <div className={styles.header__moreinfo__text}>
-                <p>50 - Тренировочных тренажеров</p>
-                <p>|</p>
-                <p>Раздел об информации о нашем фитнес зале </p>
-                <p>|</p>
-                <Link
-                  to="gallery"
-                  smooth={true}
-                  duration={1000}
-                >
-                <button className={styles.button_29}>Перейти</button>
-                </Link>
               </div>
             </div>
           </div>
