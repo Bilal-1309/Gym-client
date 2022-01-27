@@ -1,0 +1,36 @@
+.container {
+  width: 95%;
+  margin: auto;
+}
+
+.footer {
+  width: 95%;
+  height: 800px;
+  max-height: 100%;
+  border-radius: 50px 50px 0 0;
+  margin-top: 150px;
+  padding: 0 50px;
+  background: linear-gradient(110.15deg, #4a4b50 1.86%, #0d0d0f 98.63%);
+  color: #fff;
+  margin-left: 36px;
+}
+
+.users__radius {
+  width: 90%;
+  height: 180px;
+  background: rgba(196, 196, 196, 0.17);
+  border-radius: 31px;
+  margin-top: 170px;
+  margin-left: 45px;
+}
+
+.user {
+  width: 100px;
+
+  border-radius: 50%;
+}
+
+img{
+  width: 100px;
+  border-radius: 50%;
+}
