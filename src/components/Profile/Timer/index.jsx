@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getRemainingTimeUntil } from './Utils';
 
 const defaultTime = {
-  seconds: "00",
-  minutes: "00",
+  days: "00",
   hours: "00",
-  days: "00"
+  minutes: "00",
+  seconds: "00"
 }
 
 const Timer = ({timestampMs}) => {
@@ -19,17 +19,17 @@ const Timer = ({timestampMs}) => {
   }, [timestampMs])
 
   function updateTime(countdown) {
-    setTime(getRemainingTimeUntil(countdown))
+   setTime(getRemainingTimeUntil(countdown))
   }
 
   return (
     <div>
       <span>{time.days}</span>
-      <span> d: </span>
+      <span> d : </span>
       <span>{time.hours}</span>
-      <span> h: </span>
+      <span> h : </span>
       <span>{time.minutes}</span>
-      <span> m: </span>
+      <span> m : </span>
       <span>{time.seconds}</span>
       <span> s </span>
     </div>

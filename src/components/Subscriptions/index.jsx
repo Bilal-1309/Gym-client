@@ -43,7 +43,7 @@ const Subscriptions = () => {
                 <img src={`http://localhost:5000/${subscription.img}`} alt="" />
                 <figcaption>
                   <h3 className={styles.cart__price}>{subscription.price} ₽</h3>
-                  <p>Абонемент на: {subscription.time} дней</p>
+                  <p>Абонемент на: {subscription.time /3600 / 24} дней</p>
                   <p>{subscription.text}</p>
                   <button onClick={()=> token ? handleAddSubscription( subscription._id): navigate('/signin')}>Купить</button>
                 </figcaption>
