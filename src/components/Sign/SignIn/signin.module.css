@@ -5,7 +5,7 @@ html {
 .gradient{
   margin: 0;
   font-family: sans-serif;
-  background: linear-gradient(144.94deg, #5942b7 -2.35%, #ae73e4 79.38%);
+  background: linear-gradient(110.15deg, #4A4B50 1.86%, #0D0D0F 98.63%);
   background-size: 200% 200%;
   animation: gradient 10s ease infinite;
   width: 100%;
@@ -63,11 +63,11 @@ html {
 }
 
 .button5:hover {
-  background-color: #8b43ff;
+  background-color: #ff4e4e;
   color: rgb(3, 0, 0);
 }
 .button5 {
-  background-color: #8003f4; /* Green */
+  background-color: #fa5732; 
   border: none;
   color: white;
   padding: 12px 140px;
@@ -100,11 +100,11 @@ a{
 }
 
 .a:hover {
-  background-color: #8b43ff;
+  background-color: #ff4e4e;
   color: rgb(3, 0, 0);
 }
 .a {
-  background-color: #8003f4; /* Green */
+  background-color: #fa5732; /* Green */
   border: none;
   color: white;
   padding: 8px 15px;
