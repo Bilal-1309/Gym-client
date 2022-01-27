@@ -193,10 +193,10 @@ const Profile = () => {
                 <img src={`http://localhost:5000/${subsId.img}`} alt="" />
                 <figcaption>
                   <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
-                  <p>Абонемент на: {subsId.time} дней</p>
+                  <p>Абонемент на: {subsId.time / 3600 / 24} дней</p>
                   <p>{subsId.text}</p>
                   <Timer
-                  timestampMs={16436736000843249320200}/>
+                  timestampMs={subsId.deadTime}/>
                 </figcaption>
               </figure>: null}
           {trainerId ?
