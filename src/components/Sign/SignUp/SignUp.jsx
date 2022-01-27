@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../../redux/features/auth";
-import { createCart } from "../../../redux/features/cart";
 import styles from "../SignUp/signup.module.css";
 
 export default function SignUp() {
@@ -16,12 +15,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
-  const [emailError, setEmailError] = useState(
-    "поле ввода не может быть пустым"
-  );
-  const [passwordError, setPasswordError] = useState(
-    "поле ввода не может быть пустым"
-  );
+  const [emailError, setEmailError] = useState("поле ввода не может быть пустым");
+  const [passwordError, setPasswordError] = useState("поле ввода не может быть пустым");
   const [formValid, setFormVAlid] = useState(false);
 
   const [name, setName] = useState("");
@@ -30,9 +25,19 @@ export default function SignUp() {
 
   const [weight, setWeight] = useState("");
   const [weightDirty, setWeightDirty] = useState(false);
-  const [weightError, setWeightError] = useState(
-    "поле ввода не может быть пустым"
-  );
+  const [weightError, setWeightError] = useState("поле ввода не может быть пустым");
+
+  const [tel, setTel] = useState("");
+  const [telDirty, setTelDirty] = useState(false);
+  const [telError, setTelError] = useState("поле ввода не может быть пустым");
+
+  const [age, setAge] = useState("");
+  const [ageDirty, setAgeDirty] = useState(false);
+  const [ageError, setAgeError] = useState("поле ввода не может быть пустым");
+
+  const [text, setText] = useState("");
+  const [textDirty, setTextDirty] = useState(false);
+  const [textError, setTextError] = useState("поле ввода не может быть пустым");
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -45,7 +50,6 @@ export default function SignUp() {
     }
   };
 
-
   const passwordHandler = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length < 3 || e.target.value.length > 8) {
@@ -55,6 +59,33 @@ export default function SignUp() {
       }
     } else {
       setPasswordError("");
+    }
+  };
+
+  const textHandler = (e) => {
+    setText(e.target.value);
+    if (!e.target.value) {
+      setTextError("поле ввода не может быть пустым");
+    } else {
+      setTextError("");
+    }
+  };
+
+  const telHandler = (e) => {
+    setTel(e.target.value);
+    if (!e.target.value) {
+      setTelError("поле ввода не может быть пустым");
+    } else {
+      setTelError("");
+    }
+  };
+
+  const ageHandler = (e) => {
+    setAge(e.target.value);
+    if (!e.target.value) {
+      setAgeError("поле ввода не может быть пустым");
+    } else {
+      setAgeError("");
     }
   };
 
@@ -84,13 +115,6 @@ export default function SignUp() {
     }
   }, [emailError, passwordError]);
 
-  // const handleChangeLogin = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const handleChangePassword = (e) => {
-  //   setPassword(e.target.value);
-  // };
 
   const handleSubmit = () => {
     dispatch(createUser(email, password, name, weight));
@@ -123,11 +147,27 @@ export default function SignUp() {
     }
   };
 
+  const blurTel = (e) => {
+    switch (e.target.name) {
+      case "Tel":
+        setTelDirty(true);
+        break;
+      case "age":
+        setAgeDirty(true);
+        break;
+      case "text":
+        setTextDirty(true);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={styles.gradient}>
       <div className={styles.login__box}>
         <h2>регистрация</h2>
-        <div >
+        <div>
           {error}
           {emailDirty && emailError && (
             <div style={{ color: "red" }}>{emailError}</div>
@@ -135,7 +175,7 @@ export default function SignUp() {
           <div className={styles.user__box}>
             <input
               type="email"
-              placeholder="type email"
+              placeholder="email"
               value={email}
               onChange={(e) => handleChangeEmail(e)}
               onBlur={(e) => blurHandler(e)}
@@ -149,7 +189,7 @@ export default function SignUp() {
           <div className={styles.user__box}>
             <input
               type="password"
-              placeholder="type password"
+              placeholder="password"
               value={password}
               onChange={(e) => passwordHandler(e)}
               onBlur={(e) => blurHandler(e)}
@@ -165,7 +205,7 @@ export default function SignUp() {
               onBlur={(e) => blurName(e)}
               name="Name"
               type="text"
-              placeholder="Name"
+              placeholder="name"
               value={name}
               onChange={(e) => nameHandler(e)}
             />
@@ -185,13 +225,62 @@ export default function SignUp() {
             />
           </div>
 
-         <Link to='/signin'> <button
-            onClick={handleSubmit}
-            disabled={!formValid}
-            className={styles.button5}
-          >
-            зарегистрироваться
-          </button></Link>
+
+          {ageDirty && ageError && (
+            <div style={{ color: "red" }}>{ageError}</div>
+          )}
+          <div className={styles.user__box}>
+            <input
+              onBlur={(e) => blurTel(e)}
+              name="age"
+              type="number"
+              placeholder="age"
+              value={age}
+              onChange={(e) => ageHandler(e)}
+            />
+          </div>
+
+          {textDirty && textError && (
+            <div style={{ color: "red" }}>{textError}</div>
+          )}
+          <div className={styles.user__box}>
+            <input
+              onBlur={(e) => blurTel(e)}
+              name="text"
+              type="text"
+              placeholder="purpose of training"
+              value={text}
+              onChange={(e) => textHandler(e)}
+            />
+          </div>
+
+
+          
+          {telDirty && telError && (
+            <div style={{ color: "red" }}>{telError}</div>
+          )}
+          <div className={styles.user__box}>
+            <input
+              onBlur={(e) => blurTel(e)}
+              name="Tel"
+              type="tel"
+              placeholder="telephone"
+              id="phone"
+              value={tel}
+              onChange={(e) => telHandler(e)}
+            />
+          </div>
+
+          <Link to="/signin">
+            {" "}
+            <button
+              onClick={handleSubmit}
+              disabled={!formValid}
+              className={styles.button5}
+            >
+              зарегистрироваться
+            </button>
+          </Link>
         </div>
         <div className={styles.main}>
           <Link to="/" className={styles.a}>

@@ -5,11 +5,11 @@ html {
 .gradient {
   margin: 0;
   font-family: sans-serif;
-  background: linear-gradient(144.94deg, #5942b7 -2.35%, #ae73e4 79.38%);
+  background: linear-gradient(110.15deg, #4A4B50 1.86%, #0D0D0F 98.63%);
   background-size: 200% 200%;
   animation: gradient 10s ease infinite;
   width: 100%;
-  height: 617px;
+  height: 756px;
 }
 
 @keyframes gradient {
@@ -35,6 +35,7 @@ html {
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  margin-top: 60px;
 }
 
 .login__box h2 {
@@ -63,11 +64,11 @@ html {
 }
 
 .button5:hover {
-  background-color: #8b43ff;
+  background-color: #ff4e4e;
   color: rgb(3, 0, 0);
 }
 .button5 {
-  background-color: #8003f4; /* Green */
+  background-color: #fa5732; /* Green */
   border: none;
   color: white;
   padding: 12px 32px;
@@ -97,11 +98,11 @@ input::-webkit-inner-spin-button {
 }
 
 .main:hover {
-  background-color: #8b43ff;
+  background-color: #ff4e4e;
   color: rgb(3, 0, 0);
 }
 .main {
-  background-color: #8003f4; /* Green */
+  background-color: #fa5732; /* Green */
   border: none;
   color: white;
   padding: 8px 15px;
