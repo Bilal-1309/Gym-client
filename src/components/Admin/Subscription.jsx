@@ -4,7 +4,7 @@ import { useState } from "react";
 import { addAbonements } from "../../redux/features/subscription"
 import styles from './admin.module.css'
 
-const AddAbonement = () => {
+const Subscription = () => {
 
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -52,4 +52,4 @@ const AddAbonement = () => {
   );
 };
 
-export default AddAbonement;
+export default Subscription;

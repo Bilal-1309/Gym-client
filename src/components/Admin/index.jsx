@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
 import styles from "./admin.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { loadAdmin } from "../../redux/features/admin";
+import { loadUsers } from "../../redux/features/admin";
 import { loadTrainers } from "../../redux/features/trainer";
 import { loadSubscriptions } from "../../redux/features/subscription";
-import { deleteTrainers } from "../../redux/features/trainer";
+import { deleteTrainer } from "../../redux/features/trainer";
 import { deleteSubscriptions } from "../../redux/features/subscription";
-import AddTrainer from "./addTrainer";
-import AddAbonement from "./addAbonement";
+import Trainer from "./Trainer";
+import Subscription from "./Subscription";
 import { deleteProduct, loadProducts } from "../../redux/features/shop";
 import Products from "./Products";
 import { motion, AnimatePresence } from "framer-motion";
+import { loadAllCarts } from "../../redux/features/cart";
 
 const Admin = () => {
   const dispatch = useDispatch();
 
-  const trainers = useSelector((state) => state.trainerReducer.trainers);
-  const subscriptions = useSelector(
-    (state) => state.subscriptionsReducer.subscriptions
-  );
-  const products = useSelector((state) => state.productsReducer.products);
+  useEffect(() => {
+    dispatch(loadUsers());
+    dispatch(loadSubscriptions());
+    dispatch(loadTrainers());
+    dispatch(loadProducts());
+    dispatch(loadAllCarts());
+  }, [dispatch]);
 
-  const handleDelete = (id) => {
-    dispatch(deleteTrainers(id));
+  const users = useSelector((state) => state.adminReducer.users);
+  const trainers = useSelector((state) => state.trainerReducer.trainers);
+  const subscriptions = useSelector((state) => state.subscriptionsReducer.subscriptions);
+  const products = useSelector((state) => state.productsReducer.products);
+  const carts = useSelector((state) => state.cartReducer.carts);
+
+  const filterCarts = carts ? carts.filter(cart => cart.subscription) : null
+
+  const handleDeleteTrainer = (id) => {
+    dispatch(deleteTrainer(id));
   };
 
   const handleDeleteSub = (id) => {
@@ -33,25 +44,11 @@ const Admin = () => {
     dispatch(deleteProduct(id));
   };
 
-  useEffect(() => {
-    dispatch(loadAdmin());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadSubscriptions());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadTrainers());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadProducts());
-  }, [dispatch]);
 
   const [hide, setHide] = useState(false);
   const [hideSub, setHideSub] = useState(false);
   const [hideProduct, setHideProduct] = useState(false);
+  const [hideUsers, setHideUsers] = useState(false);
 
   const handleSwitch = () => {
     setHide((prev) => {
@@ -68,6 +65,12 @@ const Admin = () => {
   const handleSwitchProducts = () => {
     setHideProduct((prev) => {
       setHideProduct(!prev);
+    });
+  };
+
+  const handleSwitchUsers = () => {
+    setHideUsers((prev) => {
+      setHideUsers(!prev);
     });
   };
 
@@ -98,12 +101,12 @@ const Admin = () => {
                 style={{overflow: 'hidden'}}
               >
                 <div className={styles.admin__postInputs}>
-                  <AddAbonement />
+                  <Subscription />
                 </div>
                 <div className={styles.admin__abonements}>
-                  {subscriptions.map((item, index) => {
+                  {subscriptions.map((item) => {
                     return (
-                      <div key={index}>
+                      <div key={item._id}>
                         <p>имя: {item.name}</p>
                         <img
                           className={styles.admin__img}
@@ -143,12 +146,12 @@ const Admin = () => {
                 style={{overflow: 'hidden'}}
               >
                 <div className={styles.admin__postInputs}>
-                  <AddTrainer />
+                  <Trainer />
                 </div>
                 <div className={styles.admin__trainers}>
-                  {trainers.map((item, index) => {
+                  {trainers.map((item) => {
                     return (
-                      <div key={index}>
+                      <div key={item._id}>
                         <p>название: {item.name}</p>
                         <p>рейтинг: {item.rating}</p>
                         <img
@@ -157,7 +160,7 @@ const Admin = () => {
                           alt=""
                         />
                         <p>описание: {item.description}</p>
-                        <button onClick={() => handleDelete(item._id)}>
+                        <button onClick={() => handleDeleteTrainer(item._id)}>
                           Удалить
                         </button>
                       </div>
@@ -170,6 +173,44 @@ const Admin = () => {
         </div>
 
         {/* ================================================ */}
+
+        <div className={styles.admin__row}>
+          <div className={styles.h1} onClick={handleSwitchUsers}>
+            <h1>Покупатели</h1>
+          </div>
+          <AnimatePresence>
+            {hideUsers && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                style={{overflow: 'hidden'}}
+              >
+                <div className={styles.admin__abonements}>
+                  {users.map((user) => {
+                    return filterCarts.map(cart => {
+                      if(user._id === cart.user) {
+                       return (
+                        <div key={user._id}>
+                        <p>имя: {user.name}</p>
+                        <img
+                          className={styles.admin__img}
+                          src={`http://localhost:5000/${user.img}`}
+                          alt=""
+                        />
+                        <p>Вес: {user.weight}</p>
+                      </div>
+                       )
+                      }
+                      return null
+                    })
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <div className={styles.admin__row}>
           <div>
@@ -190,9 +231,9 @@ const Admin = () => {
                   <Products />
                 </div>
                 <div className={styles.admin__abonements}>
-                  {products.map((item, index) => {
+                  {products.map((item) => {
                     return (
-                      <div key={index}>
+                      <div key={item._id}>
                         <p>имя: {item.name}</p>
                         <img
                           className={styles.admin__img}
@@ -212,12 +253,6 @@ const Admin = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        <div className={styles.admin__row}>
-          <div>
-            <h1>Покупатели</h1>
-          </div>
         </div>
       </div>
     </div>

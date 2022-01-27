@@ -1,7 +1,8 @@
 const initialState = {
   cartItems: {},
   loading: false,
-  error: null
+  error: null,
+  carts: [],
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -18,6 +19,19 @@ export const cartReducer = (state = initialState, action) => {
         loading: false,
         cartItems: action.payload,
       };
+
+      case "carts/load/pending":
+        return {
+          ...state,
+          loading: true,
+        };
+  
+      case "carts/load/fulfilled":
+        return {
+          ...state,
+          loading: false,
+          carts: action.payload,
+        };
 
     case "product/add/fulfilled":
       return {
@@ -45,6 +59,37 @@ export const cartReducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+
+export const loadAllCarts = () => {
+  return async (dispatch) => {
+    dispatch({ type: "carts/load/pending" });
+    try {
+      const res = await fetch(`http://localhost:5000/carts`);
+
+      const data = await res.json();
+
+      dispatch({ type: "carts/load/fulfilled", payload: data });
+    } catch (error) {
+      dispatch({ type: "carts/load/rejected", payload: error });
+    }
+  };
+};
+
+export const loadCartItems = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "cartItems/load/pending" });
+    try {
+      const res = await fetch(`http://localhost:5000/carts/${id}`);
+
+      const data = await res.json();
+
+      dispatch({ type: "cartItems/load/fulfilled", payload: data });
+    } catch (error) {
+      dispatch({ type: "cartItems/load/rejected", payload: error });
+    }
+  };
 };
 
 export const removeCartItem = (product, id) => {
@@ -85,21 +130,6 @@ export const addCartItem = (product, id) => {
       dispatch({ type: "product/add/fulfilled", payload: data });
     } catch (error) {
       dispatch({ type: "product/add/rejected", payload: error });
-    }
-  };
-};
-
-export const loadCartItems = (id) => {
-  return async (dispatch) => {
-    dispatch({ type: "cartItems/load/pending" });
-    try {
-      const res = await fetch(`http://localhost:5000/carts/${id}`);
-
-      const data = await res.json();
-
-      dispatch({ type: "cartItems/load/fulfilled", payload: data });
-    } catch (error) {
-      dispatch({ type: "cartItems/load/rejected", payload: error });
     }
   };
 };
@@ -152,16 +182,3 @@ export const decreaseAmount = (productId, id) => {
   };
 };
 
-/* export const handleIncrement = (cartItem, productItem) => {
-  if (productItem) {
-    dispatch({ type: "cart/increment", payload: cartItem.productId });
-  }
-};
-
-export const handleDecrement = (cartItem) => {
-  if(cartItem.amount > 1) {
-    dispatch({ type: "cart/decrement", payload: cartItem.productId });
-  }
-};
-
- */
