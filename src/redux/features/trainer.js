@@ -82,7 +82,7 @@ export const loadTrainers = () => {
   }
 }
 
-export const deleteTrainers = (id) => {
+export const deleteTrainer = (id) => {
   return async (dispatch) => {
     dispatch({ type: 'trainers/delete/pending' })
 
@@ -99,7 +99,7 @@ export const deleteTrainers = (id) => {
   }
 }
 
-export const addTrainers = (name, raiting, photo, info) => {
+export const addTrainer = (name, raiting, photo, info) => {
 
   return async (dispatch) => {
     dispatch({ type: "trainers/post/pending" })

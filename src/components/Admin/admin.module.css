@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.test {
+  font-size: 78px;
+}
+
 .admin__block {
   margin: 4% auto;
   padding: 2% 0;

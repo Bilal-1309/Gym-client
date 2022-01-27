@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { addTrainers } from "../../redux/features/trainer";
+import { addTrainer } from "../../redux/features/trainer";
 import styles from "./admin.module.css"
 
 const AddTrainer = () => {
@@ -26,7 +26,7 @@ const AddTrainer = () => {
   }
 
   const handleClick = () => {
-    dispatch(addTrainers(name, rating, photo, info));
+    dispatch(addTrainer(name, rating, photo, info));
     setName("");
     setRating("");
     setPhoto("");

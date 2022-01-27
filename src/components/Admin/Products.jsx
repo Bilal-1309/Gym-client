@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import styles from './admin.module.css'
 import { addProduct } from "../../redux/features/shop";
-import { loadAdmin } from "../../redux/features/admin";
 
 
 const Products = () => {

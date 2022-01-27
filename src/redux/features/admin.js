@@ -27,7 +27,7 @@ export const adminReducer = (state = initialState, action) => {
   }
 }
 
-export const loadAdmin = () => {
+export const loadUsers = () => {
   return async (dispatch) => {
     dispatch({ type: 'admin/load/pending' })
     try {
