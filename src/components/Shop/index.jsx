@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartItem } from "../../redux/features/cart";
 import { loadProducts } from "../../redux/features/shop";
 import { NavLink } from "react-router-dom";
 import Cart from "./Cart";
 import styles from "./shop.module.css";
-import logo from "../../assets/logog.png";
+import logo from "../../assets/logo-white.png";
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -35,66 +35,75 @@ const Shop = () => {
   };
 
   return (
-    <div className={styles.shop__body}>
-      <div className={styles.shop__header}>
-        <div className={styles.shop__header__log}>
-          <NavLink to={"/"}>
-            <img src={logo} alt="logo" />
-          </NavLink>
+    <div className={styles.shop}>
+      <div className={styles.shop__container}>
+        <div className={styles.shop__header}>
+          <div className={styles.shop__header__log}>
+            <NavLink to={"/"}>
+              <img src={logo} alt="logo" />
+            </NavLink>
+          </div>
+
+          <h1 className={styles.shop__header__title}>Магазин</h1>
+          <Cart />
         </div>
 
-        <h1>Магазин</h1>
-        <Cart />
-      </div>
-      <div className={styles.shop___search__form}>
-      <TextField
-          id="standard-search"
-          label="Введите название продукта..."
-          type="search"
-          variant="standard"
-          className={styles.search__form}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-      </div>
-      <div className={styles.shop__main}>
-        {!loading
-          ? filtered.map((product) => {
-              const isCartItem = !token
-                ? null
-                : cartItems.productsCart.find(
-                    (item) => item.product === product._id
-                  );
+        <div className={styles.shop___search__form}>
+          <div className={styles.search}>
+            <div>
+              <input
+                onChange={(e) => handleSearch(e.target.value)}
+                type="text"
+                placeholder=" "
+                required
+              />
+            </div>
+          </div>
+        </div>
 
-              return (
-                <div className={styles.product__cart} key={product._id}>
-                  <div className={styles.product__cart__img}>
-                    <img
-                      src={`http://localhost:5000/${product.img}`}
-                      alt="product"
-                    />
-                  </div>
-                  <div className={styles.product__cart__text}>
-                    <h5>{product.name}</h5>
-                    <p>Упаковка: {product.weight} гр</p>
-                    <p> Цена: {product.price} ₽</p>
-                  </div>
+        <div className={styles.shop__main}>
+          {!loading
+            ? filtered.map((product) => {
+                const isCartItem = !token
+                  ? null
+                  : cartItems.productsCart.find(
+                      (item) => item.product === product._id
+                    );
 
-                  {!token ? (
-                    <NavLink to={"/signin"}>
-                      <button>Купить</button>
-                    </NavLink>
-                  ) : (
-                    <button
-                      disabled={isCartItem}
-                      onClick={() => handleBuyProduct(product._id)}
-                    >
-                      {isCartItem ? "В корзине" : "Купить"}
-                    </button>
-                  )}
-                </div>
-              );
-            })
-          : "идет загрузка"}
+                return (
+                  <div className={styles.product__cart} key={product._id}>
+                    <div className={styles.product__cart__img}>
+                      <img
+                        src={`http://localhost:5000/${product.img}`}
+                        alt="product"
+                      />
+                    </div>
+                    <div className={styles.product__cart__text}>
+                      <div className={styles.cart__text__top}>
+                        <p>{product.price} ₽</p>
+                        <p>{product.weight} гр</p>
+                      </div>
+                      <h5>{product.name}</h5>
+                    
+
+                    {!token ? (
+                      <NavLink to={"/signin"}>
+                        <button>Купить</button>
+                      </NavLink>
+                    ) : (
+                      <button
+                        disabled={isCartItem}
+                        onClick={() => handleBuyProduct(product._id)}
+                      >
+                        {isCartItem ? "В корзине" : "Купить"}
+                      </button>
+                    )}
+                    </div>
+                  </div>
+                );
+              })
+            : "идет загрузка"}
+        </div>
       </div>
     </div>
   );
