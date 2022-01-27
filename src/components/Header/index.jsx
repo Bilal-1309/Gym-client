@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import { Link } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
-import logo1 from "../../assets/logog.png";
+import logo1 from "../../assets/logo-white.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/features/auth";
 import { loadUsers } from "../../redux/features/profile";
+import card from "../../assets/сфкв.png";
+import Carousel from 'react-elastic-carousel'
+import bg1 from '../../assets/bg1.png'
+import bg5 from '../../assets/bg5.jpg'
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -61,25 +65,54 @@ const Header = () => {
                   smooth={true}
                   duration={1000}
                 >
-                  Купить абонимент
+                  Абонименты
                 </Link>
                 {!token ? (
-                  <NavLink
-                    className={styles.header__links}
-                    to={"/signin"}
-                  >
+                  <NavLink className={styles.header__links} to={"/signin"}>
                     Вход
                   </NavLink>
                 ) : (
                   <NavLink
                     className={styles.header__links}
                     to={"/"}
-                    style={{ color: "darkred" }}
+                    style={{ color: "red" }}
                     onClick={handleClickLogut}
                   >
                     Выход
                   </NavLink>
                 )}
+              </div>
+            </div>
+
+            <hr />
+
+            <div className={styles.header__main}>
+              <div className={styles.header__info}>
+                <div className={styles.header__h1Div}>
+                  <h1 className={styles.header__h1}>
+                    Лучший фитнес зал в городе
+                  </h1>
+                </div>
+                <p className={styles.header__p}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+                  scelerisque dolor Lorem ipsum dolor sit amet, consectetur adip{" "}
+                </p>
+                <img className={styles.header__imgInfo} src={card} alt="" />
+              </div>
+              <div className={styles.header__gallery}>
+                <Carousel
+                  itemsToShow={1}
+                  autoPlaySpeed={2000}
+                  enableAutoPlay
+                  tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
+                  transitionMs={700}
+                  showArrows={false}
+                  enableSwipe={false}
+                >
+                  <img src={bg1} alt="" />
+                  <img src={bg1} alt="" />
+                  <img src={bg5} alt="" />
+                </Carousel>
               </div>
             </div>
           </div>
