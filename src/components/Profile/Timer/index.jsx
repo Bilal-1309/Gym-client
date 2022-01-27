@@ -24,14 +24,15 @@ const Timer = ({timestampMs}) => {
 
   return (
     <div>
+      <h3>Осталось: </h3>
       <span>{time.days}</span>
       <span> d : </span>
       <span>{time.hours}</span>
-      <span> h : </span>
+      <span> h  </span>
       <span>{time.minutes}</span>
       <span> m : </span>
       <span>{time.seconds}</span>
-      <span> s </span>
+      <span> s  </span>
     </div>
   );
 };
