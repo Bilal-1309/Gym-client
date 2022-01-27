@@ -6,7 +6,10 @@
 .gallery__block {
   width: 100%;
 }
-
+.gallery__photo img {
+  width: 100px;
+  height: 300px;
+}
 .gallery__title {
   font-size: 150px;
   background: linear-gradient(45deg, #5942B7 33%, #AE73E4 66%);
@@ -25,7 +28,7 @@
   width: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .gallery__text div {
