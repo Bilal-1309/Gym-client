@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import cartIcon from "bootstrap-icons/icons/cart2.svg";
+import cartIcon from "../../../assets/shopping-cart.svg";
 import styles from "./cart.module.css";
 import CartItem from "../CartItem";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className={styles.cartButton} onClick={() => setOpened(true)}>
+      <div className={styles.cart__button} onClick={() => setOpened(true)}>
         <img src={cartIcon} alt="cart" />
         <span>
           {token
