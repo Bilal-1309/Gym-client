@@ -12,7 +12,7 @@
   padding: 2% 0;
   width: 70%;
   border-radius: 10px;
-  background-color: cornflowerblue;
+  background-color: rgb(49, 49, 49);
 }
 
 .admin__row {
@@ -40,14 +40,14 @@
 }
 
 .admin__abonements div {
- background-color: rgb(175, 197, 238);
+ background-color: rgb(182, 182, 182);
  margin: 10px 20px;
  padding: 5px 0; 
  border-radius: 5px;
 }
 
 .admin__trainers div {
-  background-color: rgb(175, 197, 238);
+  background-color: rgb(182, 182, 182);
   margin: 10px 20px;
   padding: 5px 0; 
   border-radius: 5px;
