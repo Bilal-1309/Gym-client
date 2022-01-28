@@ -75,6 +75,11 @@ export const profileReducer = (state = initialState, action) => {
           return state.users;
         })
       }
+    case 'profile/loadSubscription/fulfilled':
+      return {
+        ...state,
+        subscription: action.payload
+      }
     case 'profile/subscription/pending':
       return {
         ...state,
@@ -125,7 +130,7 @@ export const trainerAddInCart = (trainer, id) => {
       });
       const data = await res.json();
       dispatch({type: "profile/trainer/fulfilled", payload: data})
-      dispatch({type: "cart/trainer/fulfilled", payload: data})
+
     }catch (e) {
       dispatch({type: "profile/trainer/rejected", payload: e})
     }
@@ -171,7 +176,7 @@ export const loadUserSubscription = (id) => {
       dispatch({type: 'profile/subscription/pending'});
       const res = await fetch(`http://localhost:5000/carts/${id}`);
       const subscription = await res.json();
-      dispatch({type: 'profile/subscription/fulfilled', payload: subscription})
+      dispatch({type: 'profile/loadSubscription/fulfilled', payload: subscription})
     }catch (e) {
       dispatch({type: 'profile/subscription/rejected', payload: e})
     }
