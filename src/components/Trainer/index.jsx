@@ -10,8 +10,10 @@ import { trainerAddInCart} from '../../redux/features/profile'
 function Trainer() {
   const trainers = useSelector((state) => state.trainerReducer.trainers)
   const cartItems = useSelector((state) => state.cartReducer.cartItems._id);
+  const profileTrainer = useSelector((state)=> state.profileReducer.trainer.trainer)
+  const cartTrainer = useSelector(state => state.cartReducer.cartItems.trainer)
+  console.log(cartTrainer)
   const load = useSelector(state => state.cartReducer.loading)
-
   const profileId = useSelector((state) => state.auth.id)
   const token = useSelector((state) => state.auth.token)
   const dispatch = useDispatch()
@@ -29,14 +31,13 @@ function Trainer() {
     dispatch(loadTrainers())
   }, [dispatch])
 
-
     return (
       <div className={styles.main}>
         <div className={styles.container}>
           <div className={styles.header}>
             <div className={styles.header_nav}>
               <div className={styles.header_logo}>
-                <Link to='/'><img src={logo1} alt=""/></Link>
+                <Link to='/'><img className={styles.header_logo} src={logo1} alt=""/></Link>
               </div>
             </div>
           </div>
@@ -62,12 +63,13 @@ function Trainer() {
                         ★ {trainer.rating}
                       </p>
                     </div>
-                    <div className={styles.button}>
+                    {cartTrainer !== trainer._id ?
+                    <div className={styles.button }>
                       <button
                         onClick={() =>token ? handleClickTrainers(trainer._id) : navigate('/signin')}>Добавить
                         тренера
                       </button>
-                    </div>
+                    </div> : null}
                   </div>
                 </div>
               )
