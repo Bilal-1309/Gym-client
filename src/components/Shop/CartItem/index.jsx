@@ -36,6 +36,13 @@ const CartItem = ({ productCart }) => {
         if (productCart.product === product._id) {
           return (
             <tr className={styles.cart__tr} key={product._id}>
+              <td>
+                <img
+                className={styles.cart__item__img}
+                  src={`http://localhost:5000/${product.img}`}
+                  alt="product"
+                />
+              </td>
               <td>{product.name}</td>
               <td>
                 <div className={styles.cart__item__amount}>
@@ -52,14 +59,18 @@ const CartItem = ({ productCart }) => {
                 </div>
               </td>
               <td>
+                {product.price * productCart.amount} ₽
+              </td>
+              <td>
                 <button
                   className={styles.cart__item__delete}
                   onClick={() => handleRemove(product._id)}
                 >
-                  ✖️
+                  ❌
                 </button>
               </td>
             </tr>
+            
           );
         }
         return null;
