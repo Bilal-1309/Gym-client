@@ -8,8 +8,14 @@ import { logOut } from "../../redux/features/auth";
 import { loadUsers } from "../../redux/features/profile";
 import card from "../../assets/сфкв.png";
 import Carousel from 'react-elastic-carousel'
-import bg1 from '../../assets/bg1.png'
-import bg5 from '../../assets/bg5.jpg'
+import bg1 from '../../assets/bg9.jpg'
+import bg2 from '../../assets/bg10.jpg'
+import bg3 from '../../assets/bg11.jpg'
+import bg4 from '../../assets/bg12.jpg'
+import bg5 from '../../assets/bg13.jpg'
+import bg6 from '../../assets/bg15.jpg'
+import bg7 from '../../assets/bg17.jpg'
+import bg8 from '../../assets/bg19.jpeg'
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -65,7 +71,7 @@ const Header = () => {
                   smooth={true}
                   duration={1000}
                 >
-                  Абонименты
+                  Абонeменты
                 </Link>
                 {!token ? (
                   <NavLink className={styles.header__links} to={"/signin"}>
@@ -102,16 +108,22 @@ const Header = () => {
               <div className={styles.header__gallery}>
                 <Carousel
                   itemsToShow={1}
-                  autoPlaySpeed={2000}
-                  enableAutoPlay
+                  autoPlaySpeed={3000}
+                  enableAutoPlay={true}
                   tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
                   transitionMs={700}
                   showArrows={false}
-                  enableSwipe={false}
+                  enableSwipe={true}
+                  pagination={true}
                 >
                   <img src={bg1} alt="" />
-                  <img src={bg1} alt="" />
+                  <img src={bg2} alt="" />
+                  <img src={bg3} alt="" />
+                  <img src={bg4} alt="" />
                   <img src={bg5} alt="" />
+                  <img src={bg6} alt="" />
+                  <img src={bg7} alt="" />
+                  <img src={bg8} alt="" />
                 </Carousel>
               </div>
             </div>

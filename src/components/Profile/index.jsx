@@ -80,23 +80,26 @@ const Profile = () => {
       <div className={styles.header}>
         <div className={styles.header__name}>Мой профиль</div>
         <hr />
-        <NavLink to={"/"}>На главную</NavLink>
+        <button className={styles.button_79}><NavLink to={"/"}>На главную</NavLink></button>
       </div>
 
       <div className={styles.profile__info__row}>
         <div className={styles.profile__info__user}>
           {userProfile.img ? (
-            <img
-              width={200}
-              src={`http://localhost:5000/${userProfile.img}`}
-              alt="avatar"
-            />
+            <div className={styles.profile__image__div}>
+              <img
+                width={200}
+                src={`http://localhost:5000/${userProfile.img}`}
+                alt="avatar"
+              />
+            </div>
           ) : (
             <img
               src="https://avatars.mds.yandex.net/get-pdb/1996600/d1725ec1-41d3-4b2c-ab24-91ec603557bf/s375"
               alt=""
             />
           )}
+
           <div className={styles.input__wrapper}>
             <input
               onChange={(e) => handleChangeImg(e)}
@@ -105,16 +108,18 @@ const Profile = () => {
               id="input__file"
               className={`${styles.input} ${styles.input__file}`}
             />
-            <label htmlFor="input__file" className={styles.input__file_button}>
-              <span className={styles.input__file_button_text}>
+            <label for="input__file" className={styles.input__file_button}>
+              <span className={styles.input__file_icon_wrapper}>
                 <img
-                  className={styles.input__file_icon_wrapper}
-                  src={inputIcon}
-                  alt=""
+                  class="input__file-icon"
+                  src="https://cdn-icons.flaticon.com/png/512/3033/premium/3033215.png?token=exp=1643360065~hmac=ddc25323c7cae7523070080629e5a62b "
+                  alt="Выбрать файл"
+                  width="40"
                 />
               </span>
             </label>
           </div>
+
           <div className={styles.profile__userInfo__div}>
             <div className={styles.profile__userData}>
               Имя: {userProfile.name}
@@ -126,14 +131,22 @@ const Profile = () => {
               Вес: {userProfile.weight}
             </div>
             <div className={styles.profile__userData}>
-              Соц.сети: {userProfile.email}
+              Почта: {userProfile.email}
+            </div>
+            <div className={styles.profile__userData}>
+              Телефон: {userProfile.phone}
             </div>
           </div>
         </div>
 
         <div className={styles.main__info_purpose}>
-          <h2>Цель тренировок:</h2>
-          <p className={styles.profile__userData}> {userProfile.purposeTrain}</p>
+          <div>
+            <h2>Цель тренировок:</h2>
+            <p className={styles.profile__userData}>
+              {" "}
+              {userProfile.purposeTrain}
+            </p>
+          </div>
         </div>
       </div>
       {trainerId || subsId ? (
@@ -146,7 +159,9 @@ const Profile = () => {
                 <h3 className={styless.cart__price}>{subsId.price} ₽</h3>
                 <p>Абонемент на: {subsId.time / 3600 / 24} дней</p>
                 <p>{subsId.text}</p>
-                <Timer timestampMs={subscription.subscriptionDeadTime} />
+                <div className={styles.timer}>
+                  <Timer timestampMs={subscription.subscriptionDeadTime} />
+                </div>
               </figcaption>
             </figure>
           ) : null}
