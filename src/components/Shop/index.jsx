@@ -21,8 +21,8 @@ const Shop = () => {
     dispatch(loadProducts());
   }, [dispatch]);
 
-  const handleBuyProduct = (product) => {
-    dispatch(addCartItem(product, cartItems._id));
+  const handleBuyProduct = (product, price) => {
+    dispatch(addCartItem(product, price, cartItems._id));
   };
 
   const filtered = products.filter((product) => {
@@ -92,9 +92,9 @@ const Shop = () => {
                     ) : (
                       <button
                         disabled={isCartItem}
-                        onClick={() => handleBuyProduct(product._id)}
+                        onClick={() => handleBuyProduct(product._id, product.price)}
                       >
-                        {isCartItem ? "В корзине" : "Купить"}
+                        {isCartItem ? "В корзине" : "добавить в корзину"}
                       </button>
                     )}
                     </div>
