@@ -146,6 +146,8 @@
   border-radius: 50%;
   border: #272727 2px solid;
   margin-top: 10px;
+  width: 200px;
+  height: 200px;
 }
 
 .input__wrapper {
