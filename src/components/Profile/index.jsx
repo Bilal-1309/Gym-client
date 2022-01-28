@@ -112,7 +112,7 @@ const Profile = () => {
               <span className={styles.input__file_icon_wrapper}>
                 <img
                   class="input__file-icon"
-                  src="https://cdn-icons.flaticon.com/png/512/3033/premium/3033215.png?token=exp=1643360065~hmac=ddc25323c7cae7523070080629e5a62b "
+                  src="https://cdn-icons.flaticon.com/png/512/3033/premium/3033215.png?token=exp=1643371491~hmac=1ce0292b8023e8c9662817602d91ed35 "
                   alt="Выбрать файл"
                   width="40"
                 />
@@ -143,7 +143,7 @@ const Profile = () => {
           <div>
             <h2>Цель тренировок:</h2>
             <p className={styles.profile__userData}>
-              {" "}
+
               {userProfile.purposeTrain}
             </p>
           </div>
