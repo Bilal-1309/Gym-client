@@ -4,7 +4,7 @@ import cartIcon from "../../../assets/shopping-cart.svg";
 import styles from "./cart.module.css";
 import CartItem from "../CartItem";
 import { useEffect } from "react";
-import { loadCartItems } from "../../../redux/features/cart";
+import { deleteCart, loadCartItems } from "../../../redux/features/cart";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -14,12 +14,15 @@ const Cart = () => {
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.id);
   const loading = useSelector((state) => state.cartReducer.loading);
-  const products = useSelector((state) => state.productsReducer.products);
 
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
 
   const handleClose = () => {
     setOpened(false);
+  };
+
+  const handleDeleteCart = () => {
+    dispatch(deleteCart(cartItems._id));
   };
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const Cart = () => {
             Закрыть
           </button>
           {!cartItems.productsCart.length ? (
-            "В корзине нет товаров"
+            "Корзина пуста"
           ) : (
             <table className={styles.cart__items}>
               <thead>
@@ -64,10 +67,21 @@ const Cart = () => {
                   );
                 })}
                 <tr>
-                  <td></td>
+                  <td>
+                    <button
+                      className={styles.cart__delete__btn}
+                      onClick={handleDeleteCart}
+                    >
+                      купить
+                    </button>
+                  </td>
                   <td></td>
                   <td>Итог:</td>
-                  <td></td>
+                  <td>
+                    {cartItems.productsCart.length > 1 ? cartItems.productsCart.reduce((a, b) => {
+                     return (a.price * a.amount) + (b.price * b.amount)
+                    }) : cartItems.productsCart[0].price}
+                  </td>
                 </tr>
               </tbody>
             </table>

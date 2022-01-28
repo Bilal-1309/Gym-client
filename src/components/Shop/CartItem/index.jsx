@@ -59,7 +59,7 @@ const CartItem = ({ productCart }) => {
                 </div>
               </td>
               <td>
-                {product.price * productCart.amount} ₽
+                {productCart.price * productCart.amount} ₽
               </td>
               <td>
                 <button
