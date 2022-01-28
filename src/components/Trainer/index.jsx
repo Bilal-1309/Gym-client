@@ -31,6 +31,9 @@ function Trainer() {
     dispatch(loadTrainers())
   }, [dispatch])
 
+
+  console.log(trainers);
+
     return (
       <div className={styles.main}>
         <div className={styles.container}>

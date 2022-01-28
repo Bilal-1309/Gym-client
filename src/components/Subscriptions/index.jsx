@@ -20,6 +20,8 @@ const Subscriptions = () => {
   const token = useSelector((state) => state.auth.token)
   const navigate = useNavigate();
 
+  console.log(cartSubscription, 'first');
+
   useEffect(() => {
     dispatch(loadSubscriptions());
   }, [dispatch]);
@@ -44,6 +46,7 @@ const Subscriptions = () => {
           transitionMs={700}
         >
           {!load ? subscriptions.map((subscription) => {
+            console.log(subscription._id, 'second');
             return (
               <>
                   <figure className={styles.cart} key={subscription._id}>
@@ -53,8 +56,7 @@ const Subscriptions = () => {
                       <h3 className={styles.cart__price}>{subscription.price} ₽</h3>
                       <p>Абонемент на: {subscription.time / 3600 / 24} дней</p>
                       <p>{subscription.text}</p>
-                      {subscription._id !== cartSubscription ?
-                      <button onClick={() => token ? handleAddSubscription(subscription._id) : navigate('/signin')}>Купить</button> : null}
+                      <button onClick={() => token ? handleAddSubscription(subscription._id) : navigate('/signin')}>Купить</button>
                     </figcaption>
                   </figure>
                 </>
