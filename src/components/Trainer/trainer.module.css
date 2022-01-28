@@ -17,7 +17,8 @@
   flex-wrap: wrap;
 }
 .header_logo {
-  width: 60px;
+  width: 70px;
+  height: 70px;
 }
 .header_nav {
   display: flex;
@@ -70,6 +71,12 @@
   transition: .5s;
   transform-origin: left;
   transform: perspective(2000px) rotateY(-90deg);
+}
+
+.cart .butto__close{
+  width: 70%;
+  height: 0px;
+  background: #aaaaaa;
 }
 
 .cart:hover .button {

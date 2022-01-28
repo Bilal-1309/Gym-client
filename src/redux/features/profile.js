@@ -39,6 +39,11 @@ export const profileReducer = (state = initialState, action) => {
           return item
         })
       };
+    case 'profile/update/image/pending':
+      return {
+        ...state,
+        loading: true
+      }
     case 'profile/update/image/fulfilled':
       return {
         ...state,
@@ -49,6 +54,11 @@ export const profileReducer = (state = initialState, action) => {
           }
           return state.users;
         })
+      }
+    case 'profile/update/image/rejected':
+      return {
+        ...state,
+        error: action.payload
       }
     case 'profile/update/info/fulfilled':
       return {
@@ -65,17 +75,37 @@ export const profileReducer = (state = initialState, action) => {
           return state.users;
         })
       }
+    case 'profile/subscription/pending':
+      return {
+        ...state,
+        loading: true
+      }
     case 'profile/subscription/fulfilled':
       return {
         ...state,
         subscription: action.payload,
         loading: false
       }
+    case 'profile/subscription/rejected':
+      return {
+        ...state,
+        error: action.payload
+      }
+    case 'profile/trainer/pending':
+      return {
+        ...state,
+        loading: true
+      }
     case 'profile/trainer/fulfilled':
       return {
         ...state,
         trainer: action.payload,
         loading: false
+      }
+    case 'profile/trainer/rejected':
+      return {
+        ...state,
+        error: action.payload
       }
     default:
       return state
@@ -95,6 +125,7 @@ export const trainerAddInCart = (trainer, id) => {
       });
       const data = await res.json();
       dispatch({type: "profile/trainer/fulfilled", payload: data})
+      dispatch({type: "cart/trainer/fulfilled", payload: data})
     }catch (e) {
       dispatch({type: "profile/trainer/rejected", payload: e})
     }

@@ -10,13 +10,13 @@ import { useNavigate } from 'react-router-dom';
 const Subscriptions = () => {
   const dispatch = useDispatch();
 
-  const subscriptions = useSelector(
-    (state) => state.subscriptionsReducer.subscriptions
-  );
-
+  const subscriptions = useSelector((state) => state.subscriptionsReducer.subscriptions);
   const cartItems = useSelector((state) => state.cartReducer.cartItems._id);
   const load = useSelector(state => state.cartReducer.loading)
   const profileId = useSelector(state => state.auth.id)
+  const cartSubscription = useSelector(state => state.cartReducer.cartItems.subscription)
+  const profileSubscription = useSelector(state => state.profileReducer.subscription)
+  console.log(cartSubscription)
   const token = useSelector((state) => state.auth.token)
   const navigate = useNavigate();
 
@@ -53,7 +53,8 @@ const Subscriptions = () => {
                       <h3 className={styles.cart__price}>{subscription.price} ₽</h3>
                       <p>Абонемент на: {subscription.time / 3600 / 24} дней</p>
                       <p>{subscription.text}</p>
-                      <button onClick={() => token ? handleAddSubscription(subscription._id) : navigate('/signin')}>Купить</button>
+                      {subscription._id !== cartSubscription ?
+                      <button onClick={() => token ? handleAddSubscription(subscription._id) : navigate('/signin')}>Купить</button> : null}
                     </figcaption>
                   </figure>
                 </>
