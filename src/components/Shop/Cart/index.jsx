@@ -14,6 +14,7 @@ const Cart = () => {
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.id);
   const loading = useSelector((state) => state.cartReducer.loading);
+  const products = useSelector((state) => state.productsReducer.products);
 
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
 
@@ -49,8 +50,10 @@ const Cart = () => {
             <table className={styles.cart__items}>
               <thead>
                 <tr>
+                  <th></th>
                   <th>Товар</th>
                   <th>Кол-во</th>
+                  <th>Сумма</th>
                   <th></th>
                 </tr>
               </thead>
@@ -60,6 +63,12 @@ const Cart = () => {
                     <CartItem key={productCart._id} productCart={productCart} />
                   );
                 })}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Итог:</td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           )}

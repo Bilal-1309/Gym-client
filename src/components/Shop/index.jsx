@@ -37,9 +37,9 @@ const Shop = () => {
     <div className={styles.shop}>
       <div className={styles.shop__container}>
         <div className={styles.shop__header}>
-          <div className={styles.shop__header__log}>
+          <div>
             <NavLink to={"/"}>
-              <img src={logo} alt="logo" />
+              <img  className={styles.shop__header__logo} src={logo} alt="logo" />
             </NavLink>
           </div>
 
