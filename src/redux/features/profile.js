@@ -121,7 +121,7 @@ export const trainerAddInCart = (trainer, id) => {
   return async (dispatch) => {
     dispatch({type: "profile/trainer/pending"})
     try {
-      const res = await fetch(`http://localhost:5000/carts/add/${id}`,{
+      const res = await fetch(`http://localhost:5000/carts/add/trainer/${id}`,{
         method: "PATCH",
         body: JSON.stringify({trainer: trainer}),
         headers: {
@@ -247,7 +247,6 @@ export const updateUserProfile = (
     .then((res)=> res.json())
     .then.data((data)=> {
       dispatch({type: "profile/update/info/fulfilled", payload: data})
-      console.log(data)
     });
   };
 };

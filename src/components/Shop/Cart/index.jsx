@@ -33,13 +33,14 @@ const Cart = () => {
     <>
       <div className={styles.cart__button} onClick={() => setOpened(true)}>
         <img src={cartIcon} alt="cart" />
-        <span>
-          {token
-            ? !loading && cartItems.productsCart
-              ? cartItems.productsCart.length
-              : "..."
-            : null}
-        </span>
+
+        {token ? (
+          !loading && cartItems.productsCart ? (
+            cartItems.productsCart.length ? (
+              <span>{cartItems.productsCart.length}</span>
+            ) : null
+          ) : null
+        ) : null}
       </div>
 
       {!token ? null : !opened ? null : (
@@ -78,9 +79,11 @@ const Cart = () => {
                   <td></td>
                   <td>Итог:</td>
                   <td>
-                    {cartItems.productsCart.length > 1 ? cartItems.productsCart.reduce((a, b) => {
-                     return (a.price * a.amount) + (b.price * b.amount)
-                    }) : cartItems.productsCart[0].price}
+                    {cartItems.productsCart.length > 1
+                      ? cartItems.productsCart.reduce((a, b) => {
+                          return a.price * a.amount + b.price * b.amount;
+                        })
+                      : cartItems.productsCart[0].price}
                   </td>
                 </tr>
               </tbody>

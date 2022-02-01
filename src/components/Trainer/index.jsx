@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { loadTrainers } from '../../redux/features/trainer'
@@ -10,9 +10,7 @@ import { trainerAddInCart} from '../../redux/features/profile'
 function Trainer() {
   const trainers = useSelector((state) => state.trainerReducer.trainers)
   const cartItems = useSelector((state) => state.cartReducer.cartItems._id);
-  const profileTrainer = useSelector((state)=> state.profileReducer.trainer.trainer)
   const cartTrainer = useSelector(state => state.cartReducer.cartItems.trainer)
-  console.log(cartTrainer)
   const load = useSelector(state => state.cartReducer.loading)
   const profileId = useSelector((state) => state.auth.id)
   const token = useSelector((state) => state.auth.token)
@@ -21,7 +19,7 @@ function Trainer() {
 
   useEffect(()=> {
     dispatch(loadCartItems(profileId))
-  }, [dispatch])
+  }, [dispatch, profileId])
 
   const handleClickTrainers = (trainer) => {
       dispatch(trainerAddInCart(trainer, cartItems))
@@ -31,8 +29,6 @@ function Trainer() {
     dispatch(loadTrainers())
   }, [dispatch])
 
-
-  console.log(trainers);
 
     return (
       <div className={styles.main}>
