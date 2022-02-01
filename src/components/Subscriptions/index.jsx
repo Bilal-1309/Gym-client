@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadSubscriptions } from "../../redux/features/subscription";
 import Carousel from 'react-elastic-carousel'
 import styles from "./subscription.module.css";
-import { loadUserSubscription, subscriptionAddInCart } from '../../redux/features/profile';
+import { subscriptionAddInCart } from '../../redux/features/profile';
 import { loadCartItems } from '../../redux/features/cart';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,13 +14,8 @@ const Subscriptions = () => {
   const cartItems = useSelector((state) => state.cartReducer.cartItems._id);
   const load = useSelector(state => state.cartReducer.loading)
   const profileId = useSelector(state => state.auth.id)
-  const cartSubscription = useSelector(state => state.cartReducer.cartItems.subscription)
-  const profileSubscription = useSelector(state => state.profileReducer.subscription)
-  console.log(cartSubscription)
   const token = useSelector((state) => state.auth.token)
   const navigate = useNavigate();
-
-  console.log(cartSubscription, 'first');
 
   useEffect(() => {
     dispatch(loadSubscriptions());
@@ -28,7 +23,7 @@ const Subscriptions = () => {
 
   useEffect(() => {
     dispatch(loadCartItems(profileId))
-  }, [dispatch])
+  }, [dispatch, profileId])
 
   const handleAddSubscription = (subscription) => {
     dispatch(subscriptionAddInCart(subscription, cartItems))
@@ -46,7 +41,6 @@ const Subscriptions = () => {
           transitionMs={700}
         >
           {!load ? subscriptions.map((subscription) => {
-            console.log(subscription._id, 'second');
             return (
               <>
                   <figure className={styles.cart} key={subscription._id}>

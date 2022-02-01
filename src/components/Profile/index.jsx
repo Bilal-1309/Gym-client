@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./profile.module.css";
 import styless from "../Subscriptions/subscription.module.css";
 import stylesss from "../Trainer/trainer.module.css";
@@ -13,34 +13,10 @@ import { NavLink, useParams } from "react-router-dom";
 import { loadSubscriptions } from "../../redux/features/subscription";
 import { loadTrainers } from "../../redux/features/trainer";
 import Timer from "./Timer";
-import { loadAllCarts, loadCartItems } from "../../redux/features/cart";
+import { loadAllCarts} from "../../redux/features/cart";
 
 const Profile = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadUsers());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadUserSubscription(id));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadUserTrainer(id));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadSubscriptions());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadTrainers());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(loadAllCarts());
-  }, [dispatch]);
 
   const users = useSelector((state) => state.profileReducer.users);
 
@@ -66,11 +42,33 @@ const Profile = () => {
 
   const trainerId = trainers.find((item) => item._id === trainer);
 
+  useEffect(() => {
+    dispatch(loadUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadUserSubscription(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(loadUserTrainer(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(loadSubscriptions());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadTrainers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadAllCarts());
+  }, [dispatch]);
+
   const handleChangeImg = (e) => {
     dispatch(uploadAvatar(e.target.files[0], id));
   };
-
-  const inputIcon = "*";
 
   if (!users.length) {
     return "загрузка";
