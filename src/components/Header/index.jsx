@@ -6,16 +6,16 @@ import logo1 from "../../assets/logo-white.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/features/auth";
 import { loadUsers } from "../../redux/features/profile";
-import card from "../../assets/сфкв.png";
-import Carousel from 'react-elastic-carousel'
-import bg1 from '../../assets/bg9.jpg'
-import bg2 from '../../assets/bg10.jpg'
-import bg3 from '../../assets/bg11.jpg'
-import bg4 from '../../assets/bg12.jpg'
-import bg5 from '../../assets/bg13.jpg'
-import bg6 from '../../assets/bg15.jpg'
-import bg7 from '../../assets/bg17.jpg'
-import bg8 from '../../assets/bg19.jpeg'
+
+import Carousel from "react-elastic-carousel";
+import bg1 from "../../assets/bg9.jpg";
+import bg2 from "../../assets/bg10.jpg";
+import bg3 from "../../assets/bg11.jpg";
+import bg4 from "../../assets/bg12.jpg";
+import bg5 from "../../assets/bg13.jpg";
+import bg6 from "../../assets/bg15.jpg";
+import bg7 from "../../assets/bg17.jpg";
+import bg8 from "../../assets/bg19.jpeg";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ const Header = () => {
   const token = useSelector((state) => state.auth.token);
   const id = useSelector((state) => state.auth.id);
   const users = useSelector((state) => state.profileReducer.users);
-  /* const loading = useSelector((state) => state.profileReducer.loading); */
 
   useEffect(() => {
     dispatch(loadUsers());
@@ -99,11 +98,49 @@ const Header = () => {
                     Лучший фитнес зал в городе
                   </h1>
                 </div>
-                <p className={styles.header__p}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  scelerisque dolor Lorem ipsum dolor sit amet, consectetur adip{" "}
-                </p>
-                <img className={styles.header__imgInfo} src={card} alt="" />
+
+                <div className={styles.header__contacts}>
+                  <div className={styles.contacts__left__block}>
+                    <div className={styles.left__block__item}>
+                      <h6>Адрес</h6>
+                      <p>г. Грозный, ул. Трошева 7</p>
+                    </div>
+                    <div className={styles.left__block__item}>
+                      <h6>Номер</h6>
+                      <p>8 989 676 65 35</p>
+                    </div>
+                    <div className={styles.left__block__item}>
+                      <h6>Наши страницы</h6>
+                      <div>
+                        <a href="https://www.youtube.com/">YouTube</a>
+                        <a href="https://www.instagram.com/">Instagram</a>
+                        <a href="https://www.vk.com/">VK</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.contacts__right__block}>
+                    <a href="https://www.youtube.com/">
+                      {" "}
+                      <img
+                        src="https://img.icons8.com/small/344/youtube-play.png"
+                        alt=""
+                      />
+                    </a>
+                    <a href="https://www.instagram.com/">
+                      <img
+                        src="https://img.icons8.com/small/344/instagram-new.png"
+                        alt=""
+                      />
+                    </a>
+
+                    <a href="https://www.vk.com/">
+                      <img
+                        src="https://img.icons8.com/small/344/vk-com.png"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
               <div className={styles.header__gallery}>
                 <Carousel

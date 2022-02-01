@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./profile.module.css";
 import styless from "../Subscriptions/subscription.module.css";
 import stylesss from "../Trainer/trainer.module.css";
@@ -13,7 +13,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { loadSubscriptions } from "../../redux/features/subscription";
 import { loadTrainers } from "../../redux/features/trainer";
 import Timer from "./Timer";
-import { loadAllCarts, loadCartItems } from "../../redux/features/cart";
+import { loadAllCarts } from "../../redux/features/cart";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -70,8 +70,6 @@ const Profile = () => {
     dispatch(uploadAvatar(e.target.files[0], id));
   };
 
-  const inputIcon = "*";
-
   if (!users.length) {
     return "загрузка";
   }
@@ -108,10 +106,10 @@ const Profile = () => {
               id="input__file"
               className={`${styles.input} ${styles.input__file}`}
             />
-            <label for="input__file" className={styles.input__file_button}>
+            <label htmlFor="input__file" className={styles.input__file_button}>
               <span className={styles.input__file_icon_wrapper}>
                 <img
-                  class="input__file-icon"
+                  className="input__file-icon"
                   src="https://cdn-icons.flaticon.com/png/512/3033/premium/3033215.png?token=exp=1643371491~hmac=1ce0292b8023e8c9662817602d91ed35 "
                   alt="Выбрать файл"
                   width="40"

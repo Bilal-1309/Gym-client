@@ -22,7 +22,7 @@ const Footer = () => {
         <div className={styles.users}>
             {users.map((item) => {
               return (
-                <div className={styles.users__img}>
+                <div className={styles.users__img} key={item._id}>
                   <img
                   className={styles.user}
                   src={`http://localhost:5000/${item.img}`}
